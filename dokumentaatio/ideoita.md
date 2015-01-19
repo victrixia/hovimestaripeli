@@ -1,0 +1,1 @@
+- käytä aluksi tekstitiedostoja databasen sijaan
