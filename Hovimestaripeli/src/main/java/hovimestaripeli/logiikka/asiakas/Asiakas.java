@@ -11,15 +11,88 @@ import hovimestaripeli.logiikka.tarjottavat.*;
 public class Asiakas {
 
     private String nimi;
-    private int budjetti;
+    private int budjetti;       //viinibudjetti, tähän ei kuulu ruoka eikä tippi
     
     private Maku maku;
+    private int humala;         // humalan aste, 10 = 0,1 promillea.
+    public int tyytyvaisyys;   
     
-    public Asiakas(){
-        nimi = "testiasiakas";
-        budjetti = 100;
+    public Asiakas(String nimi, int budjetti, Maku maku){
+        this.nimi = nimi;
+        this.budjetti = budjetti;
         
-        maku = new Maku(this);
+        this.maku = maku;
+        this.humala = 0;
+        this.tyytyvaisyys = 0;      // Välillä -100 - 100. Modifioi tipin määrää.
+    }
+
+    public void humallu(Viini viini) {       // asiakkaan humalatilan lisäys yhden juoman jäljiltä. Parametriksi tulee Viinin parametri 'vahvuus'.
+        
+        int lisays = 2*viini.getVahvuus();
+        
+        this.humala += lisays;
     }
     
+    public void reagoi(Viini viini){
+    int reaktio = 1;          
+    
+    if (viini.getVari() == maku.yleismaku){
+        reaktio += 2;
+    }
+    
+    if (viini.getHinta() < maku.getAlaraja() || viini.getHinta() > maku.getYlaraja()){      // jos viini on liian halpa tai kallis
+        reaktio -= 10;
+    } 
+    
+    if (onkoRypaleetListalla(maku.getSuosikki(), viini.getRypaleet())){             // Teoriassa on mahdollista että samassa viinissä on suosikkia JA inhokkia, mutta suosikki voittaa tässä tapauksessa.
+        reaktio += 20;
+    } else if (onkoRypaleetListalla(maku.getInhokki(), viini.getRypaleet())){
+        reaktio -= 20;
+    }
+    
+    reaktio += viini.getLaatu();
+    reaktio *= humala/10;
+    
+    tyytyvaisyys += reaktio;
+    
+    if (tyytyvaisyys < -100){
+        tyytyvaisyys = 100;
+    }
+    
+    if (tyytyvaisyys > 100){
+        tyytyvaisyys = 100;
+    }
+    }
+    
+    public int annaTippiä(){            // tippi lasketaan uudelleen joka ruokalajin välissä
+    
+        return (this.budjetti/20) * (this.humala/10) * (this.tyytyvaisyys/5);     // Pitää vielä tutkia tätä humalan ja tipin suhdetta
+    }
+    
+    public boolean onkoRypaleetListalla(String[] omaMaku, String[] viininRypaleet){         // tämä metodi nyt ei ole supertehokas, mutta listat ovat niin lyhyitä ettei haitanne vaikka aikavaativuus onkin vain O(n²) :P
+    
+        
+        for (int i = 0; i < omaMaku.length; i++) {
+            String a = omaMaku[i];
+            for (int j = 0; j < viininRypaleet.length; j++) {
+                String b = viininRypaleet[j];
+                
+                if (a.equals(b)){
+                    return true;
+                }
+                
+            }
+            
+        }
+    
+        return false;
+    }
+
+    public int getHumala() {
+        return humala;
+    }
+    
+    
 }
+
+  

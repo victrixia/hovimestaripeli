@@ -23,7 +23,6 @@ public class Tekstikali {
 
     public void aloitusmenu() {
 
-
         System.out.println("Tervetuloa hovimestaripeliin! \n"
                 + "Luo uusi hovimestari kirjoittamalla \'1\'. \n"
                 + "poistu pelistä kirjoittamalla \'x\'");
@@ -37,6 +36,7 @@ public class Tekstikali {
                 break;
             } else if (input.equals("1")) {
                 luoHovimestari();
+                break;
             } else {
                 System.out.println("Höpö höpö, otapa uudestaan!");
             }
@@ -46,38 +46,44 @@ public class Tekstikali {
     }
 
     private void luoHovimestari() {
-        System.out.println("Anna hovimestarin nimi (jos et anna nimeä, sinulle arvotaan sellainen)");
-        System.out.print(">");
-        input = reader.nextLine();
-        
-        peli.setHovimestari(input);
-        
+        while (true) {
+
+            System.out.println("Anna hovimestarin nimi:");
+            System.out.print(">");
+            input = reader.nextLine();
+            if (!input.isEmpty()) {
+                break;
+            }
+
+        }
+
+        peli.setHovimestari(new Hovimestari(input));
+
         System.out.println("Tervetuloa peliin, " + peli.getHovimestari().getNimi() + "!");
-        
-        
+
     }
-    
-    public void setPeli(Peli peli){
+
+    public void setPeli(Peli peli) {
         this.peli = peli;
     }
 
     public int tarjoile(Ruokalaji laji) {
-        
-        if (laji.getTyyppi() == 0){
+
+        if (laji.getTyyppi() == 0) {
             System.out.print("Alkuruokana on ");
-        } else if (laji.getTyyppi() == 1){
+        } else if (laji.getTyyppi() == 1) {
             System.out.print("Pääruokana on ");
         } else {
             System.out.print("Jälkiruoaksi on ");
         }
-    
+
         System.out.println(laji.getKuvaus() + ". Mitä viiniä suosittelet asiakkaalle?");
         System.out.print(">");
         int a = Integer.parseInt(reader.nextLine());
         System.out.println("Kiitos!");
-        
+
         return a;
-        
+
     }
 
 }

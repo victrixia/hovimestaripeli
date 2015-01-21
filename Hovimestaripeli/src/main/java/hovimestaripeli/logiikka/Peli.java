@@ -18,9 +18,12 @@ public class Peli {
     public Peli(Tekstikali kali){
     
         this.kali = kali;
-        asiakas = new Asiakas();
-       
     
+    }
+    
+    public Peli(){                      // käyttöliittymätön testiversio
+    
+        
     }
     
     public void aloita(){
@@ -43,8 +46,9 @@ public class Peli {
         System.out.println("Kiitos kun pelasit, chin chin!");
     }
 
-    public void setHovimestari(String nimi){
-        this.hovimestari = new Hovimestari(nimi);
+    public void setHovimestari(Hovimestari hm){
+        
+        this.hovimestari = hm;
     }
     
     public void tarjoile(Ruokalaji laji){
@@ -63,6 +67,16 @@ public class Peli {
     public Hovimestari getHovimestari() {
         return hovimestari;
     }
+
+    public void setAsiakas(Asiakas asiakas) {
+        this.asiakas = asiakas;
+    }
+
+    public Asiakas getAsiakas() {
+        return asiakas;
+    }
+    
+    
     
       
     

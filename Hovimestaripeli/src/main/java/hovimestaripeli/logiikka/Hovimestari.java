@@ -23,7 +23,19 @@ public class Hovimestari {
         return nimi;
     }
     
+    public int getTippi(){
+        return tippi;
+    }
     
+    public void setTippi(int t){
+        
+        if (tippi + t < 0){             // koska tippi voi myös vähentyä illan aikana, tarkistetaan ettei tippi sentään tipu alle nollan.
+            tippi = 0;
+        }
+    
+        tippi += t;
+        
+    }
 
    
 
