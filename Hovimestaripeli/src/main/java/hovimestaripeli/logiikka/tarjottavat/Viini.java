@@ -92,7 +92,7 @@ public class Viini {
         
         
         return v + ", " + maa + ". Rypäleet: " + getRypaleetString() + ". Hinta: "
-                + hinta + "€, Laatu: " + laatu + " tähteä, alkoholiprosentti " + vahvuus; 
+                + hinta + "€, Laatu: " + laatu + " tähteä, Alkoholiprosentti: " + vahvuus +"."; 
     }
     
     

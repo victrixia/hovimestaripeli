@@ -36,7 +36,7 @@
                 <configuration>
                     <instrumentation>
                         <includes>
-                            <include>hovimestaripeli.hovimestaripeli/*.class</include>
+                            <include>hovimestaripeli.logiikka/*.class</include>
                             
                         </includes>
                     </instrumentation>
@@ -49,10 +49,10 @@
                 <version>0.30</version>
                 <configuration>
                     <targetClasses>
-                        <param>hovimestaripeli.hovimestaripeli.*</param>
+                        <param>hovimestaripeli.logiikka*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>hovimestaripeli.hovimestaripeli.*</param>
+                        <param>hovimestaripeli.logiikka*</param>
                         
                     </targetTests>
                 </configuration>
