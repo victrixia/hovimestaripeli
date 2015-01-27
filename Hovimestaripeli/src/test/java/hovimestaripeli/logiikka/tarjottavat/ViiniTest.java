@@ -45,7 +45,7 @@ public class ViiniTest {
     @Test 
     public void toStringToimiiOikeinUseallaRypaleella(){
     
-         Viini chardonnay = new Viini(2, new String[]{"Chardonnay, Viognier"}, 7, 3, 14, "USA");
+         Viini chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
          
          assertEquals(chardonnay.toString(), "Valkoviini, USA. Rypäleet: Chardonnay, Viognier. Hinta: 7€, Laatu: 3 tähteä, Alkoholiprosentti: 14.");
         
