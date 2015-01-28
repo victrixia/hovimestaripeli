@@ -110,7 +110,45 @@ public class Viini {
         return v + ", " + maa + ". Rypäleet: " + getRypaleetString() + ". Hinta: "
                 + hinta + "€, Laatu: " + laatu + " tähteä, Alkoholiprosentti: " + vahvuus +"."; 
     }
-    
+
+    /**
+     *
+     * Tosiaan, tää on aika tarpeen.
+     */
+    @Override
+  public int hashCode(){
+      return maa.length()*hinta+laatu+vahvuus;
+  }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Viini other = (Viini) obj;
+        if (this.vari != other.vari) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.rypaleet, other.rypaleet)) {
+            return false;
+        }
+        if (this.hinta != other.hinta) {
+            return false;
+        }
+        if (this.laatu != other.laatu) {
+            return false;
+        }
+        if (this.vahvuus != other.vahvuus) {
+            return false;
+        }
+        if (!Objects.equals(this.maa, other.maa)) {
+            return false;
+        }
+        return true;
+    }
     
 
     

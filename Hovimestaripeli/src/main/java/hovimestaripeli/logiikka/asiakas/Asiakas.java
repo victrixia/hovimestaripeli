@@ -34,6 +34,7 @@ public class Asiakas {
     }
 
     public void reagoi(Viini viini, Ruokalaji rl) {         // onko tämä metodi liian pitkä? Sitä voi ehkä pilkkoa pienempiin osiin jos tarvitsee.
+
         int reaktio = 1;
 
         if (viini.getVari() == maku.yleismaku) {
@@ -60,6 +61,8 @@ public class Asiakas {
         if (tyytyvaisyys >= 100) {
             tyytyvaisyys = 100;
         }
+
+        humallu(viini);                 // Reaktion lopuksi lasketaan viinin vaikutus asiakkaan humalatilaan seuraavaa kierrosta varten.
     }
 
     public int annaTippiä() {            // tippi lasketaan uudelleen joka ruokalajin välissä
@@ -75,7 +78,7 @@ public class Asiakas {
             b = this.tyytyvaisyys / 10;   // Jos tyytyväisyys ei ole nolla, tyytyväisyys tai tyytymättömyys antaa myös tippikertoimen - negatiivisen tai positiivisen!
         }
 
-        return (this.budjetti / 30) * a * b;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta
+        return (this.budjetti / 30) * a * b;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta, tällä hetkellä humalainen saattaa heittää kolmannen ruokalajin jälkeen ihan järjettömiä summia pöytään. Sitäpaitsi tippi meni nyt miinukselle vaikka ei saisi.
     }
 
     public boolean onkoRypaleetListalla(String[] omaMaku, String[] viininRypaleet) {         // tämä metodi nyt ei ole supertehokas, mutta listat ovat niin lyhyitä ettei haitanne vaikka aikavaativuus onkin vain O(n²) :P
