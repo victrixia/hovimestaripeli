@@ -53,17 +53,38 @@ public class HovimestariTest {
 
         Hovimestari hm = new Hovimestari();
 
-        hm.setTippi(-10);
+        hm.muutaTippia(-10);
 
         assertEquals(0, hm.getTippi());
+    }
+    
+    @Test
+    public void tippiKasvaaKunAnnettavaTippiPositiivinen(){
+    
+        Hovimestari hm = new Hovimestari();
+        
+        hm.muutaTippia(10);
+        
+        assertEquals(10, hm.getTippi());
+        
+    }
+    
+    @Test 
+    public void tippiVaheneeKunAnnettavaTippiNegatiivinen(){
+        Hovimestari hm = new Hovimestari();
+        
+        hm.muutaTippia(12);
+        hm.muutaTippia(-3);
+        
+        assertEquals(9, hm.getTippi());
     }
 
     @Test
     public void tippiVoiPudotaTasanNollaan() {
 
         Hovimestari hm = new Hovimestari();
-        hm.setTippi(10);
-        hm.setTippi(-10);
+        hm.muutaTippia(10);
+        hm.muutaTippia(-10);
         assertEquals(0, hm.getTippi());
     }
 

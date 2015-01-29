@@ -84,25 +84,35 @@ public class Tekstikali {
         System.out.println("3: " + v.get(2));
         System.out.print(">");
         int a = Integer.parseInt(reader.nextLine());
+        
+        while (a <1 || a > 3){
+            System.out.println("Valitse viini väliltä 1-3;");
+            System.out.println(">");
+            a = Integer.parseInt(reader.nextLine());
+        }
         System.out.println("Kiitos!");
 
         return a - 1;
 
     }
 
-    public void asiakkaanReaktio(Asiakas a) {
+    public void asiakkaanReaktio(Asiakas a, Hovimestari hm) {
         System.out.println("Asiakkaan tyytyväisyys tarjoilemasi viinin jälkeen: " + a.getTyytyvaisyys());       // Reaktioista tulee taiteellisesti kiinnostavampia kunhan ehdin oikeasti tehdä asiakkaat. ;)
-        System.out.println("Tippisi kasvoi " + a.annaTippiä() + " eurolla.");
+        System.out.println("Tippisi on nyt " + hm.getTippi() + " euroa.");
 
         int al = 0;                 // muotoillaan promillet oikein
         int b = a.getHumala();
-        if (b > 99) {
+        if (b > 99) {               // asiakas lentää pihalle ennen kahden promillen saavuttamista, joten tätä suurempia lukuja ei ole mielekästä huomioida
             al = 1;
             b -= 100;
         }
 
         System.out.println("Asiakkaan humalatila on tämän ruokalajin jälkeen " + al + "." + b + " promillea.");   
 
+    }
+
+    public void lopetus() {
+        throw new UnsupportedOperationException("I offer the Doctor my most enthusiastic contrafibbularities.");
     }
 
 }

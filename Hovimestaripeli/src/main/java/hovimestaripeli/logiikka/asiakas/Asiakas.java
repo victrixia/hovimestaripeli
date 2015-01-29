@@ -65,7 +65,7 @@ public class Asiakas {
         humallu(viini);                 // Reaktion lopuksi lasketaan viinin vaikutus asiakkaan humalatilaan seuraavaa kierrosta varten.
     }
 
-    public int annaTippiä() {            // tippi lasketaan uudelleen joka ruokalajin välissä
+    public int annaTippiä(int hovimestarinTippi) {            // tippi lasketaan uudelleen joka ruokalajin välissä
 
         int a = 1;
         int b = 1;
@@ -77,8 +77,14 @@ public class Asiakas {
         if (this.tyytyvaisyys != 0) {
             b = this.tyytyvaisyys / 10;   // Jos tyytyväisyys ei ole nolla, tyytyväisyys tai tyytymättömyys antaa myös tippikertoimen - negatiivisen tai positiivisen!
         }
+        
+        int tippi = (this.budjetti / 30) * a * b;
+        
+        if ((hovimestarinTippi + tippi) < 0){
+            tippi = -hovimestarinTippi;
+        }
 
-        return (this.budjetti / 30) * a * b;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta, tällä hetkellä humalainen saattaa heittää kolmannen ruokalajin jälkeen ihan järjettömiä summia pöytään. Sitäpaitsi tippi meni nyt miinukselle vaikka ei saisi.
+        return tippi;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta, tällä hetkellä humalainen saattaa heittää kolmannen ruokalajin jälkeen ihan järjettömiä summia pöytään. Sitäpaitsi tippi meni nyt miinukselle vaikka ei saisi.
     }
 
     public boolean onkoRypaleetListalla(String[] omaMaku, String[] viininRypaleet) {         // tämä metodi nyt ei ole supertehokas, mutta listat ovat niin lyhyitä ettei haitanne vaikka aikavaativuus onkin vain O(n²) :P
@@ -99,7 +105,7 @@ public class Asiakas {
         return false;
     }
 
-    private int onkoSuosikkiRypale(Viini viini) {
+    public int onkoSuosikkiRypale(Viini viini) {
 
         if (onkoRypaleetListalla(maku.getSuosikki(), viini.getRypaleet())) {             // Teoriassa on mahdollista että samassa viinissä on suosikkia JA inhokkia, mutta suosikki voittaa tässä tapauksessa.
             return 20;
@@ -110,23 +116,25 @@ public class Asiakas {
         return 0;
     }
 
-    private int sopiikoRuokalajille(Viini viini, Ruokalaji rl) {
-
+    public int sopiikoRuokalajille(Viini viini, Ruokalaji rl) {
+        int lahto = 0;
         int kerroin = 10 - level;
         if (level >= 11) {           // Ettei vahingossa tuu vääränmerkkinen kerroin jos asiakkaan leveli nousee liian korkealle, tosin levelcap on ainakin alustavasti 10
             kerroin = 0;
         }
-
+        if (viini.getVari() == rl.getViinityyppi()){
+            lahto = 3;
+        }
         if (onkoRypaleetListalla(viini.getRypaleet(), rl.getPerfetto())) {           // Mitä matalampi leveli, sitä parempi reaktio hyvään viiniin - pitäähän sitä jotain vaikeustasoa olla
-            return 10 + kerroin;
+            return lahto + 10 + kerroin;
         } else if (onkoRypaleetListalla(viini.getRypaleet(), rl.getKamala())) {      // Korkeamman levelin asiakkaat reagoi isommalla negatiivisella huonosti sopivaan kuin matalamman, trolololoo
             return -(level * 2);
         }
 
-        return 0;
+        return lahto;
     }
 
-    private int onkoLiianKallistaTaiHalpaa(Viini viini) {
+    public int onkoLiianKallistaTaiHalpaa(Viini viini) {
 
         if (viini.getHinta() < maku.getAlaraja() || viini.getHinta() > maku.getYlaraja()) {      // jos viini on liian halpa tai kallis
             return -10;

@@ -19,6 +19,11 @@ public class Peli {
     public TarjottavienValiaikaisvarasto t;
 
     public Peli(Tekstikali kali) {
+        
+        if (kali == null){
+        
+            throw new Error ("käyttöliittymää ei ole alustettu");
+        }
 
         this.kali = kali;
         this.t = new TarjottavienValiaikaisvarasto();
@@ -46,7 +51,7 @@ public class Peli {
     }
 
     public void lopetus() {
-        System.out.println("Kiitos kun pelasit, chin chin!");
+        kali.lopetus();
     }
 
     public void setHovimestari(Hovimestari hm) {
@@ -104,7 +109,8 @@ public class Peli {
     private void valitaReaktio(Asiakas asiakas, Viini viini, Ruokalaji rl) {
         
         asiakas.reagoi(viini, rl);
-        kali.asiakkaanReaktio(asiakas);
+        hovimestari.muutaTippia(asiakas.annaTippiä(hovimestari.getTippi()));
+        kali.asiakkaanReaktio(asiakas, hovimestari);
 
     }
 

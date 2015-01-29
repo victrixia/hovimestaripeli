@@ -50,4 +50,22 @@ public class ViiniTest {
          assertEquals(chardonnay.toString(), "Valkoviini, USA. Rypäleet: Chardonnay, Viognier. Hinta: 7€, Laatu: 3 tähteä, Alkoholiprosentti: 14.");
         
     }
+    
+    @Test
+    
+    public void equalsPalauttaaTrueJosViinitSamoja(){
+        Viini a = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        
+        assertEquals(true, a.equals(b));
+    
+    }
+    
+    @Test
+    public void equalsPalauttaaFalseJosViinitEreja(){
+        Viini a = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 13, "USA");    // pienikin muutos pitää riittää
+        
+        assertEquals(false, a.equals(b));
+    }
 }
