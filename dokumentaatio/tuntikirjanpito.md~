@@ -6,4 +6,5 @@
 21.1. Parisen tuntia toiminnallisuuden lisäämistä Asiakas- ja Viini-luokkiin. Muutama testi lisätty plus manuaalista testausta. Kaikki ei taida nyt toimia vielä niinkuin pitää, mutta nyt on aika mennä nukkumaan... <p>
 22.1. 4 tuntia. Testien kirjoittamista, pitin konffauksen korjausta, pit-generaatio. Aika paljon mutantteja menee vielä läpi, pitää korjata testejä! Luokkakaavion piirtäminen puhtaaksi photoshopilla. :P<p>
 27.1. 3 tuntia lisäkoodausta (ruokalajien sovittaminen asiakkaan reaktioihin), lisätestien kirjoittamista ja vanhojen korjaamista/täydentämistä. <p>
-28.1. 2 tuntia, lisätty random-toiminto viinien arpomiseen ja täydennetty tekstikäliä  ja pelilogiikkaa niin, että peli tarjoaa ruokalajille nyt kolme eri viinivaihtoehtoa ja kertoo asiakkaan reaktion. Reaktio kaipaa vielä 'pientä' hienosäätöä.
+28.1. 2 tuntia, lisätty random-toiminto viinien arpomiseen ja täydennetty tekstikäliä  ja pelilogiikkaa niin, että peli tarjoaa ruokalajille nyt kolme eri viinivaihtoehtoa ja kertoo asiakkaan reaktion. Reaktio kaipaa vielä 'pientä' hienosäätöä.<p>
+29.1. 5 tuntia. Testien kirjoittamista, pientä hienosäätöä, luokkakaavion päivitys. Saattaa olla vähän vajaata, onnistuin sairastumaan influenssaan. ;; <p>
