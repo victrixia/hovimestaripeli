@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
  * @author amparkki
  */
 public class ViiniTest {
+     Viini chardonnay;
     
     public ViiniTest() {
     }
@@ -27,6 +28,8 @@ public class ViiniTest {
     
     @Before
     public void setUp() {
+        
+         chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
     }
     
     @After
@@ -45,7 +48,6 @@ public class ViiniTest {
     @Test 
     public void toStringToimiiOikeinUseallaRypaleella(){
     
-         Viini chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
          
          assertEquals(chardonnay.toString(), "Valkoviini, USA. Rypäleet: Chardonnay, Viognier. Hinta: 7€, Laatu: 3 tähteä, Alkoholiprosentti: 14.");
         
@@ -54,8 +56,8 @@ public class ViiniTest {
     @Test
     
     public void equalsPalauttaaTrueJosViinitSamoja(){
-        Viini a = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        Viini a = chardonnay;
+        Viini b = chardonnay;
         
         assertEquals(true, a.equals(b));
     
@@ -63,7 +65,7 @@ public class ViiniTest {
     
     @Test
     public void equalsPalauttaaFalseJosViinitEreja(){
-        Viini a = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        Viini a = chardonnay;
         Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 13, "USA");    // pienikin muutos pitää riittää
         
         assertEquals(false, a.equals(b));

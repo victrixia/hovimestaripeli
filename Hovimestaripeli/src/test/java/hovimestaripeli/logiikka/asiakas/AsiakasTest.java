@@ -18,6 +18,13 @@ import org.junit.Test;
  */
 public class AsiakasTest {
 
+    Asiakas as;
+    Viini v;
+    Hovimestari hm;
+    Ruokalaji rl;
+    Ruokalaji kanapasta;
+    Viini chardonnay;
+
     public AsiakasTest() {
     }
 
@@ -33,6 +40,12 @@ public class AsiakasTest {
     @Before
     public void setUp() {
 
+        as = new Asiakas("asiakas", 200, new Maku(), 1);
+        v = new Viini();
+        hm = new Hovimestari();
+        rl = new Ruokalaji();
+        kanapasta = new Ruokalaji(1, 2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2);
+        chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
     }
 
     @After
@@ -42,62 +55,46 @@ public class AsiakasTest {
     @Test
     public void humalaAlussaNolla() {
 
-        Asiakas a = new Asiakas("asiakas", 200, new Maku(), 1);
-
-        assertEquals(0, a.getHumala());
+        assertEquals(0, as.getHumala());
     }
 
     @Test
     public void asiakasHumaltuuOikein() {
 
-        Asiakas a = new Asiakas("asiakas", 200, new Maku(), 1);
+        as.humallu(v);
 
-        Viini v = new Viini();
-
-        a.humallu(v);
-
-        assertEquals(24, a.getHumala());
+        assertEquals(24, as.getHumala());
 
     }
 
     @Test
     public void asiakasReagoiViiniinOikein() {
-        Asiakas a = new Asiakas("asiakas", 200, new Maku(), 1);
 
-        Viini v = new Viini();
-        Ruokalaji rl = new Ruokalaji();
-        a.reagoi(v, rl);
+        as.reagoi(v, rl);
 
-        assertEquals(27, a.getTyytyvaisyys());
+        assertEquals(27, as.getTyytyvaisyys());
 
     }
 
     @Test
     public void asiakasTippaaOikein() {
 
-        Asiakas a = new Asiakas("asiakas", 200, new Maku(), 1);
-        Hovimestari hm = new Hovimestari();
-        Viini v = new Viini();
+        as.humallu(v);
 
-        a.humallu(v);
-        Ruokalaji rl = new Ruokalaji();
-        a.reagoi(v, rl);
+        as.reagoi(v, rl);
 
-        assertEquals(48, a.annaTippiä(hm.getTippi()));      // okei tää on liikaa, pitää tasapainottaa
+        assertEquals(48, as.annaTippiä(hm.getTippi()));      // okei tää on liikaa, pitää tasapainottaa
 
     }
 
     @Test
     public void tippiEiPutoaMiinukselle() {
 
-        Asiakas a = new Asiakas("asiakas", 200, new Maku(), 1);
-        Hovimestari hm = new Hovimestari();
-        Viini v = new Viini(1, new String[]{"Cabernet Sauvignon"}, 20, 0, 14, "Venäjä");     // trololol
+        Viini hyh = new Viini(1, new String[]{"Cabernet Sauvignon"}, 20, 0, 14, "Venäjä");     // trololol
 
-        Ruokalaji rl = new Ruokalaji();
-        a.reagoi(v, rl);
+        as.reagoi(hyh, rl);
         int tippi = hm.getTippi();
-        hm.muutaTippia(a.annaTippiä(tippi));
+        hm.muutaTippia(as.annaTippiä(tippi));
 
         assertEquals(0, hm.getTippi());
 
@@ -109,9 +106,6 @@ public class AsiakasTest {
         Asiakas a = new Asiakas("ABC", 100, uusimaku, 3);
         Asiakas b = new Asiakas("ABC", 100, uusimaku, 4);
 
-        Ruokalaji kanapasta = new Ruokalaji(1, 2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2);
-
-        Viini chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
         a.reagoi(chardonnay, kanapasta);
         b.reagoi(chardonnay, kanapasta);
 
@@ -124,8 +118,6 @@ public class AsiakasTest {
         String[] a = new String[]{"Riesling", "Pinot Noir", "Garganega"};
         String[] b = new String[]{"Malbec", "Carmenere", "Tempranillo"};
 
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
-
         assertEquals(false, as.onkoRypaleetListalla(a, b));
 
     }
@@ -134,8 +126,6 @@ public class AsiakasTest {
     public void onkoRypaleListallaPalauttaaTrueJosRypaleOnListalla() {
         String[] a = new String[]{"Malbec", "Pinot Noir", "Garganega"};
         String[] b = new String[]{"Malbec", "Carmenere", "Tempranillo"};
-
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
 
         assertEquals(true, as.onkoRypaleetListalla(a, b));
 
@@ -146,18 +136,15 @@ public class AsiakasTest {
         String[] a = new String[]{"Malbec", "Pinot Noir", "Garganega"};
         String[] b = new String[]{"Malbec", "Pinot Noir", "Tempranillo"};
 
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
-
         assertEquals(true, as.onkoRypaleetListalla(a, b));
     }
 
     @Test
     public void josViiniEiOleSuosikkiEikaMuutenkaanHerataIntohimojaReaktioOnYksiPlusLaatu() {
 
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
-        Viini v = new Viini(1, new String[]{"Viinirypäle"}, 10, 2, 14, "Eurooppa");
-        Ruokalaji rl = new Ruokalaji();
-        as.reagoi(v, rl);
+        Viini vi = new Viini(1, new String[]{"Viinirypäle"}, 10, 2, 14, "Eurooppa");
+
+        as.reagoi(vi, rl);
 
         assertEquals(as.getTyytyvaisyys(), 3);
 
@@ -165,27 +152,27 @@ public class AsiakasTest {
 
     @Test
     public void onkoLiianKallistaTaiHalpaaPalauttaaNegatiivistaKunViiniOnLiianHalpa() {
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
-        Viini v = new Viini(1, new String[]{"Viinirypäle"}, 1, 2, 14, "Eurooppa");
 
-        int a = as.onkoLiianKallistaTaiHalpaa(v);
+        Viini meh = new Viini(1, new String[]{"Viinirypäle"}, 1, 2, 14, "Eurooppa");
+
+        int a = as.onkoLiianKallistaTaiHalpaa(meh);
 
         assertEquals(-10, a);
     }
 
     @Test
     public void onkoLiianKallistaTaiHalpaaPalauttaaNegatiivistaKunViiniOnLiianKallis() {
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
-        Viini v = new Viini(1, new String[]{"Viinirypäle"}, 100, 2, 14, "Eurooppa");
 
-        int a = as.onkoLiianKallistaTaiHalpaa(v);
+        Viini huh = new Viini(1, new String[]{"Viinirypäle"}, 100, 2, 14, "Eurooppa");
+
+        int a = as.onkoLiianKallistaTaiHalpaa(huh);
 
         assertEquals(-10, a);
     }
 
     @Test
     public void kalleusTestiPalauttaaNollaKunViininHintaYlarajalla() {
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
+
         Viini v = new Viini(1, new String[]{"Viinirypäle"}, 20, 2, 14, "Eurooppa");
 
         int a = as.onkoLiianKallistaTaiHalpaa(v);
@@ -196,7 +183,7 @@ public class AsiakasTest {
 
     @Test
     public void kalleusTestiPalauttaaNollaKunViininHintaAlarajalla() {
-        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 1);
+
         Viini v = new Viini(1, new String[]{"Viinirypäle"}, 7, 2, 14, "Eurooppa");
 
         int a = as.onkoLiianKallistaTaiHalpaa(v);
@@ -204,42 +191,37 @@ public class AsiakasTest {
         assertEquals(0, a);
 
     }
-    
-    @Test
-    public void ruokalajinSopivuusViiniinVaikuttaaPositiivisesti(){
-        Asiakas as = new Asiakas ("asiakas", 100, new Maku(), 4);
-        Ruokalaji kanapasta = new Ruokalaji(1, 2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2);
 
-        Viini chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+    @Test
+    public void ruokalajinSopivuusViiniinVaikuttaaPositiivisesti() {
+        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 4);
         
         int a = as.sopiikoRuokalajille(chardonnay, kanapasta);
-        
-        assertEquals(true,(a >10));
+
+        assertEquals(true, (a > 10));
     }
-    
+
     @Test
-    public void ruokalajinSopimattomuusViiniinVaikuttaaNegatiivisesti(){
-        Asiakas as = new Asiakas ("asiakas", 100, new Maku(), 4);
-        Ruokalaji kanapasta = new Ruokalaji(1, 2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2);
+    public void ruokalajinSopimattomuusViiniinVaikuttaaNegatiivisesti() {
+        Asiakas as = new Asiakas("asiakas", 100, new Maku(), 4);
 
         Viini tempranillo = new Viini(1, new String[]{"Tempranillo"}, 7, 3, 14, "Espanja");
-        
-        int a = as.sopiikoRuokalajille(tempranillo, kanapasta);
-        
-        assertEquals(true,(a < 0));
-    }
-    
-    @Test
-    public void josViiniEiOleHyvaEikaHuonoMuttaOikeaaVariaSaaPienenBonuksen(){
-       Asiakas as = new Asiakas ("asiakas", 100, new Maku(), 4);
-        Ruokalaji kanapasta = new Ruokalaji(1, 2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2);
 
+        int a = as.sopiikoRuokalajille(tempranillo, kanapasta);
+
+        assertEquals(true, (a < 0));
+    }
+
+    @Test
+    public void josViiniEiOleHyvaEikaHuonoMuttaOikeaaVariaSaaPienenBonuksen() {
+        Asiakas wau = new Asiakas("asiakas", 100, new Maku(), 4);
+       
         Viini valkkari = new Viini(2, new String[]{"Rypäle"}, 7, 3, 14, "Espanja");
-        
-        int a = as.sopiikoRuokalajille(valkkari, kanapasta);
-        
+
+        int a = wau.sopiikoRuokalajille(valkkari, kanapasta);
+
         assertEquals(3, a);
-        
+
     }
 
 }

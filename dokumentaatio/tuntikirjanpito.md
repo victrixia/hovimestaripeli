@@ -10,3 +10,4 @@
 29.1. 5 tuntia. Testien kirjoittamista, pientä hienosäätöä, luokkakaavion päivitys. Saattaa olla vähän vajaata, onnistuin sairastumaan influenssaan. ;; <p>
 
 Pit on Peli-luokan kohdalla hiukan ongelmallinen. Pelilogiikka on lähinnä olioissa itsessään, Peli vain toimii välittäjänä käyttöliittymän ja olioiden välillä. Sen testaaminen on siis useimpien metodien kohdalla melko hankalaa (ne kun lähinnä kutsuvat käyttöliittymää tai jonkin olion jo muualla testattua metodia), enkä oikein tiedä, kuinka toteuttaa sitä. Vai onko se edes tarpeen? <p>
+4.2. 4 tuntia. Testien refaktorointia ja graafisen käyttöliittymän aloitus. Ps. Swing on KAMALAA. Aargh. <p>

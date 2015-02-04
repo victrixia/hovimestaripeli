@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
  * @author amparkki
  */
 public class HovimestariTest {
+    
+     Hovimestari hm;
 
     public HovimestariTest() {
     }
@@ -27,6 +29,7 @@ public class HovimestariTest {
 
     @Before
     public void setUp() {
+        hm = new Hovimestari();
     }
 
     @After
@@ -36,22 +39,21 @@ public class HovimestariTest {
     @Test
     public void HovimestarinNimiOnOikein() {
 
-        Hovimestari hm = new Hovimestari("Carson");
+        Hovimestari c = new Hovimestari("Carson");
 
-        assertEquals("Carson", hm.getNimi());
+        assertEquals("Carson", c.getNimi());
     }
 
     @Test
     public void HovimestarinTippiOnAlussaNolla() {
 
-        Hovimestari hm = new Hovimestari();
+       
         assertEquals(0, hm.getTippi());
     }
 
     @Test
     public void TippiEiAlitaNollaa() {
 
-        Hovimestari hm = new Hovimestari();
 
         hm.muutaTippia(-10);
 
@@ -61,8 +63,6 @@ public class HovimestariTest {
     @Test
     public void tippiKasvaaKunAnnettavaTippiPositiivinen(){
     
-        Hovimestari hm = new Hovimestari();
-        
         hm.muutaTippia(10);
         
         assertEquals(10, hm.getTippi());
@@ -71,8 +71,7 @@ public class HovimestariTest {
     
     @Test 
     public void tippiVaheneeKunAnnettavaTippiNegatiivinen(){
-        Hovimestari hm = new Hovimestari();
-        
+         
         hm.muutaTippia(12);
         hm.muutaTippia(-3);
         
@@ -82,7 +81,7 @@ public class HovimestariTest {
     @Test
     public void tippiVoiPudotaTasanNollaan() {
 
-        Hovimestari hm = new Hovimestari();
+        
         hm.muutaTippia(10);
         hm.muutaTippia(-10);
         assertEquals(0, hm.getTippi());

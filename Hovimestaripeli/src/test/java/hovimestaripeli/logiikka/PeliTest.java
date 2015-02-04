@@ -14,7 +14,7 @@ import org.junit.Test;
 
 /**
  * "About as effective as a cat-flap in an elephant house."
- * Aika moni metodi lähinnä kutsuu muita metodeja joita on jo testattu tai jotka liittyvät käyttöliittymään. En oikein keksi, kuinka testata niitä!
+ * 
  * @author amparkki
  */
 public class PeliTest {
