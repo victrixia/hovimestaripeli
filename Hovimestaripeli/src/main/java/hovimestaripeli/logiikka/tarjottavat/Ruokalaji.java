@@ -1,7 +1,11 @@
 package hovimestaripeli.logiikka.tarjottavat;
 
 /**
- * "Hot potato, off his drawers, Puck will make amends!"
+ * Asiakkaalle tarjoiltava ruokalaji, joka jaotellaan alku- pää- ja jälkiruokiin. 
+ * Ruokalajilla on myös kaksi listaa viineistä; sopivat ja huonosti sopivat. Lisäksi 
+ * ruokalajilla on yleissopiva  viinityyppi, joka menettelee vaikka rypäleet eivät aivan
+ * natsaisikaan.
+ * 
  * @author amparkki
  */
 public class Ruokalaji {

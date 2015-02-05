@@ -48,8 +48,10 @@ public class HovimestarinLuonti extends JPanel {
         
 
         JButton uusiNappi = new JButton("Allons-y!");
+        
+        
         uusiNappi.addActionListener(new HovimestarinLisaysKuuntelija(nimiKentta, peli));
-        uusiNappi.addActionListener(new Siirry(gk, alareuna));
+        uusiNappi.addActionListener(new Siirry(gk, new Pelitila()));
 
         alareuna.add(nimitxt);
         

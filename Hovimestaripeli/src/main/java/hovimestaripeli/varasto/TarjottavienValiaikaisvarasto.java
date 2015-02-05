@@ -5,7 +5,9 @@ import hovimestaripeli.logiikka.tarjottavat.Viini;
 import java.util.*;
 
 /**
- * "Hot potato, off his drawers, Puck will make amends!"
+ * Koska kurssi ei painotu tietokantoihin, toistaiseksi hoidetaan viinien ja ruokalajien 
+ * tallentaminen ihan näin kovakoodaamalla ne listoihin. 
+ * 
  * @author amparkki
  */
 public class TarjottavienValiaikaisvarasto {

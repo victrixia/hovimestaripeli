@@ -2,6 +2,8 @@ package hovimestaripeli.logiikka.tarjottavat;
 
 /**
  * "Hot potato, office drawers, Puck will make amends!"
+ * 
+ * Saattaa olla turha luokka, katsotaan poistuuko kokonaan
  * @author amparkki
  */
 class Ateria {

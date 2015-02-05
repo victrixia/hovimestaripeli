@@ -7,9 +7,10 @@ import hovimestaripeli.varasto.TarjottavienValiaikaisvarasto;
 import java.util.*;
 
 /**
- * "Hot potato, office drawers, Puck will make amends!"
+ * Luokka kokoaa kaiken pelilogiikan yhteen ja välittää kutsut eri luokkien
+ * välillä. Lisäksi se kommunikoi käyttöliittymän kanssa.
  *
- * @author amparkki
+ * @author Anna Maria Parkkinen
  */
 public class Peli {
 
@@ -19,10 +20,10 @@ public class Peli {
     public TarjottavienValiaikaisvarasto t;
 
     public Peli(Tekstikali kali) {
-        
-        if (kali == null){
-        
-            throw new Error ("käyttöliittymää ei ole alustettu");
+
+        if (kali == null) {
+
+            throw new Error("käyttöliittymää ei ole alustettu");
         }
 
         this.kali = kali;
@@ -31,7 +32,7 @@ public class Peli {
     }
 
     public Peli() {                      // käyttöliittymätön testiversio
-         this.t = new TarjottavienValiaikaisvarasto();
+        this.t = new TarjottavienValiaikaisvarasto();
     }
 
     public void aloita() {
@@ -40,13 +41,20 @@ public class Peli {
 
     }
 
+    /**
+     * Metodi kutsuu lopullisessa muodossaan ruokalajin ja viinit arpovia
+     * metodeja, ja välittää ne tarjoile()-metodille. Pelaaja päättää mikä viini
+     * tarjoillaan, jonka jälkeen välitetään asiakkaan reaktio pelaajalle.
+     *
+     * @param kierros
+     */
     public void kierros(int kierros) {
 
         Ruokalaji rl = new Ruokalaji();
         ArrayList<Viini> v = arvoViinit();
 
-        int a = tarjoile(rl,v);
-        valitaReaktio(asiakas, v.get(a), rl);
+        int a = tarjoile(rl, v);
+        valitaReaktio(v.get(a), rl);
 
     }
 
@@ -59,12 +67,23 @@ public class Peli {
         this.hovimestari = hm;
     }
 
+    /**
+     * kutsuu käyttöliittymää. Tämä voisi olla ehkä private.
+     *
+     * @param laji
+     * @param v
+     * @return
+     */
     public int tarjoile(Ruokalaji laji, ArrayList<Viini> v) {
 
         return kali.tarjoile(laji, v);
 
     }
 
+    /**
+     * Metodi pyöräyttää koko pelin läpi yhden asiakkaan osalta. Muokataan
+     * myöhemmin niin, että asiakkaita voi olla useampia.
+     */
     public void pelaa() {
 
         aloita();
@@ -76,6 +95,12 @@ public class Peli {
         lopetus();
     }
 
+    /**
+     * Metodi arpoo viinien listalta kolme satunnaista viiniä, joista pelaaja
+     * valitsee asiakkaalle ja hänen ruokalajilleen parhaiten sopivan.
+     *
+     * @return kolmen viinin lista;
+     */
     public ArrayList<Viini> arvoViinit() {
         ArrayList<Viini> viinit = new ArrayList<>();
 
@@ -106,14 +131,23 @@ public class Peli {
         return asiakas;
     }
 
-    private void valitaReaktio(Asiakas asiakas, Viini viini, Ruokalaji rl) {
-        
+    /**
+     * Metodi kutsuu asiakkaalle reaktiota tarjottuihin ruokalajiin ja viiniin.
+     * Reaktion perusteella muutetaan hovimestarin tippiä.
+     *
+     * @param asiakas
+     * @param viini
+     * @param rl
+     */
+    public void valitaReaktio(Viini viini, Ruokalaji rl) {
+
         asiakas.reagoi(viini, rl);
         hovimestari.muutaTippia(asiakas.annaTippiä(hovimestari.getTippi()));
-        kali.asiakkaanReaktio(asiakas, hovimestari);
+
+        if (!(kali == null)) {
+            kali.asiakkaanReaktio(asiakas, hovimestari);
+        }
 
     }
-
- 
 
 }

@@ -3,7 +3,21 @@ package hovimestaripeli.logiikka.asiakas;
 import hovimestaripeli.logiikka.tarjottavat.*;
 
 /**
- * "Hot potato, office drawers, Puck will make amends!"
+ * Asiakas on pelin NPC-hahmo, jota hovimestarin tulee miellyttää saadakseen mahdollisimman
+ * korkea tippi. Asiakkaalla on nimi, budjetti jonka perusteella lasketaan tippi, ja jonka ylittäminen
+ * asettaa asiakkaan noloon tilanteeseen - ja mikä pahinta, pilaa kierroksen pisteet. 
+ * Asiakkaalla on myös Maku, joka määrittelee hänen mieltymyksensä ja yksittäisten lasien ala-
+ * ja ylähintarajat.
+ * 
+ * Asiakas humaltuu nauttiessaan alkoholipitoisia juomia, ja hänen reaktionsa kasvavat 
+ * humalatilan myötä. Kuitenkin jos humalatila kasvaa yli 150:n (eli 1.5 promillen), asiakas 
+ * alkaa käyttäytyä häiritsevästi ja poistetaan ravintolasta - mikä sekin johtaa kierroksen 
+ * häviämiseen.
+ * 
+ * Asiakkaalla on myös vaikeustaso, joka vaikuttaa hänen reaktioihinsa. Tasojen 1-3 asiakkaat
+ * eivät osaa reagoida ruuan ja viinin yhteensopivuuteen.
+ * 
+ * Asiakkaan tyytyväisyys vaihtelee välillä -100 - 100, ja vaikuttaa tipin määrään. 
  *
  * @author amparkki
  */
@@ -26,12 +40,26 @@ public class Asiakas {
         this.tyytyvaisyys = 0;      // Välillä -100 - 100. Modifioi tipin määrää.
     }
 
+    /**
+     * Asiakkaan humalatilaa kasvatetaan nautitun viinin alkoholiprosentin perusteella.
+     * 
+     * @param viini 
+     */
+    
     public void humallu(Viini viini) {       // asiakkaan humalatilan lisäys yhden juoman jäljiltä. Parametriksi tulee Viinin parametri 'vahvuus'.
 
         int lisays = 2 * viini.getVahvuus();
 
         this.humala += lisays;
     }
+    
+    /**
+     * Luokan päämetodi, joka kutsuu kaikkia muita tarjoiltuun viiniin liittyviä metodeita 
+     * ja lopuksi määrittelee asiakkaan tyytyväisyyden kierroksen jälkeen. Tämä taas vaikuttaa
+     * suoraan annetun tipin määrään.
+     * @param viini
+     * @param rl 
+     */
 
     public void reagoi(Viini viini, Ruokalaji rl) {         // onko tämä metodi liian pitkä? Sitä voi ehkä pilkkoa pienempiin osiin jos tarvitsee.
 
@@ -65,6 +93,16 @@ public class Asiakas {
         humallu(viini);                 // Reaktion lopuksi lasketaan viinin vaikutus asiakkaan humalatilaan seuraavaa kierrosta varten.
     }
 
+    /**
+     * Metodi laskee hovimestarin tipin yhden kierroksen osalta. Tipin määrään vaikuttavat 
+     * asiakkaan tyytyväisyys, humalatila ja budjetti. Tippi voi olla myös negatiivinen, mutta
+     * tällöin korkeintaan samansuuruinen kuin jo olemassa olevat tippi, eli kokonaistippi ei
+     * voi laskea alle nollan. 
+     * 
+     * @param hovimestarinTippi
+     * @return summa, jolla hovimestarin tippiä muutetaan. 
+     */
+    
     public int annaTippiä(int hovimestarinTippi) {            // tippi lasketaan uudelleen joka ruokalajin välissä
 
         int a = 1;
@@ -86,6 +124,17 @@ public class Asiakas {
 
         return tippi;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta, tällä hetkellä humalainen saattaa heittää kolmannen ruokalajin jälkeen ihan järjettömiä summia pöytään. Sitäpaitsi tippi meni nyt miinukselle vaikka ei saisi.
     }
+    
+    /**
+     * Yleismetodi tutkii, onko kahdessa String[]:issa samansisältöisiä alkioita, eli suomeksi 
+     * sanottuna tarkistaa, onko jokin rypäle jollakin toisella listalla: esimerkiksi tarjottavan
+     * viinin rypäleet asiakkaan suosikki- tai inhokkilistalla, tai ruokalajille erityisen hyvin sopivien
+     * viinien listalla.
+     * 
+     * @param omaMaku
+     * @param viininRypaleet
+     * @return true jos yksikin rypäle löytyy listalta, muuten false
+     */
 
     public boolean onkoRypaleetListalla(String[] omaMaku, String[] viininRypaleet) {         // tämä metodi nyt ei ole supertehokas, mutta listat ovat niin lyhyitä ettei haitanne vaikka aikavaativuus onkin vain O(n²) :P
 
@@ -104,6 +153,15 @@ public class Asiakas {
 
         return false;
     }
+    
+    /**
+     * Tutkii, onko viini asiakkaan suosikki- tai inhokkilistalla. Suosikki päihittää inhokin, eli 
+     * siinä tapauksessa että viinissä on sekä suosikki- että inhokkirypälettä, annetaan
+     * pisteet suosikin mukaan.
+     * 
+     * @param viini
+     * @return -20 tai 20 pistettä jos viini löytyy jommalta kummalta listalta, muuten 0.
+     */
 
     public int onkoSuosikkiRypale(Viini viini) {
 
@@ -115,6 +173,18 @@ public class Asiakas {
 
         return 0;
     }
+    
+    /**
+     * Tutkii viinin sopivuuden ruokalajille ja suhteuttaa pistemäärän asiakkaan 
+     * vaikeustason mukaan. Viinin sopivasta väristä saa hieman lisäpisteitä jos 
+     * viini ei muuten ole sopivien listalla. 
+     * 
+     * @param viini
+     * @param rl
+     * @return negatiivisen tai positiivisen pistemäärän mikäli viini löytyy ruokalajille sopivien tai epäsopivien
+     * viinien listalta; 3 jos on sopivan värinen eikä muuta; 0 mikäli viini on ruokalajin
+     * kannalta täysin yhdentekevä.
+     */
 
     public int sopiikoRuokalajille(Viini viini, Ruokalaji rl) {
         int lahto = 0;
@@ -133,6 +203,14 @@ public class Asiakas {
 
         return lahto;
     }
+    
+    /**
+     * vertaa viinilasin hintaa asiakkaan ala- ja ylärajoihin. Mikäli lasillisen 
+     * hinta on liian korkea tai matala, tulee miinuspisteitä.
+     * 
+     * @param viini
+     * @return -10 jos viini on liian halpa tai kallis, muuten 0.
+     */
 
     public int onkoLiianKallistaTaiHalpaa(Viini viini) {
 

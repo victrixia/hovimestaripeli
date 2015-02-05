@@ -1,7 +1,8 @@
-
-
 package hovimestaripeli.logiikka;
 
+import hovimestaripeli.logiikka.asiakas.Asiakas;
+import hovimestaripeli.logiikka.asiakas.Maku;
+import hovimestaripeli.logiikka.tarjottavat.Ruokalaji;
 import hovimestaripeli.logiikka.tarjottavat.Viini;
 import hovimestaripeli.varasto.*;
 import java.util.*;
@@ -14,10 +15,14 @@ import org.junit.Test;
 
 /**
  * "About as effective as a cat-flap in an elephant house."
- * 
+ *
  * @author amparkki
  */
 public class PeliTest {
+
+    Peli peli;
+    Viini v;
+    Ruokalaji rl;
 
     public PeliTest() {
     }
@@ -32,6 +37,15 @@ public class PeliTest {
 
     @Before
     public void setUp() {
+        peli = new Peli();
+        Asiakas a = new Asiakas("asiakas", 100, new Maku(), 1);
+        peli.setAsiakas(a);
+        Hovimestari hm = new Hovimestari();
+        peli.setHovimestari(hm);
+        
+        v = new Viini();
+        rl= new Ruokalaji();
+        
     }
 
     @After
@@ -39,26 +53,40 @@ public class PeliTest {
     }
 
     @Test
-    public void viinienArpominenTuottaaOikeanKokoisenListan(){
-        Peli peli = new Peli();
+    public void viinienArpominenTuottaaOikeanKokoisenListan() {
+
         ArrayList<Viini> viinit = peli.arvoViinit();
-        
+
         assertEquals(3, viinit.size());
     }
-    
-    @Test 
-    public void arvotullaViinilistallaEiSamojaViineja(){
-        Peli peli = new Peli();
-        ArrayList<Viini> viinit = peli.arvoViinit();
+
+    @Test
+    public void arvotullaViinilistallaEiSamojaViineja() {
         
+        ArrayList<Viini> viinit = peli.arvoViinit();
+
         Viini a = viinit.get(0);
         Viini b = viinit.get(1);
         Viini c = viinit.get(2);
+
+        assertEquals(false, (a.equals(b) && b.equals(c) && c.equals(a)));
+
+    }
+    
+    @Test
+    public void valitaReaktionJalkeenAsiakkaanReaktioOikein(){
+        peli.valitaReaktio(v, rl);
         
-        assertEquals (false, (a.equals(b) && b.equals(c) && c.equals(a)));
+        assertEquals(27, peli.getAsiakas().getTyytyvaisyys());
     
     }
     
+    @Test
+    public void valitaReaktionJalkeenHovimestarinTippiOnKasvanutOikein(){
+        peli.valitaReaktio(v, rl);
+        
+        assertEquals(12, peli.getHovimestari().getTippi());
     
+    }
 
 }

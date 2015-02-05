@@ -1,7 +1,7 @@
 package hovimestaripeli.logiikka;
 
 /**
- * "Hot potato, office drawers, Puck will make amends!"
+ * Hovimestari on pelaajan hahmo. Pelaajan tavoite on kerätä mahdollisimman korkea tippi.
  *
  * @author amparkki
  */
@@ -27,6 +27,12 @@ public class Hovimestari {
     public int getTippi() {
         return tippi;
     }
+    
+    /**
+     * Kasvattaa tai vähentää hovimestarin saamaa tippiä. 
+     * 
+     * @param t 
+     */
 
     public void muutaTippia(int t) {
 

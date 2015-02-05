@@ -11,3 +11,4 @@
 
 Pit on Peli-luokan kohdalla hiukan ongelmallinen. Pelilogiikka on lähinnä olioissa itsessään, Peli vain toimii välittäjänä käyttöliittymän ja olioiden välillä. Sen testaaminen on siis useimpien metodien kohdalla melko hankalaa (ne kun lähinnä kutsuvat käyttöliittymää tai jonkin olion jo muualla testattua metodia), enkä oikein tiedä, kuinka toteuttaa sitä. Vai onko se edes tarpeen? <p>
 4.2. 4 tuntia. Testien refaktorointia ja graafisen käyttöliittymän aloitus. Ps. Swing on KAMALAA. Aargh. <p>
+5.2. 3 tuntia. Hieman uusia testejä, javadocin kirjoittamista. Haluaisin olla käyttöliittymän kanssa pidemmällä, mutta viikonlopun ja alkuviikon tosi kipeänä => en juuri pystynyt koodaamaan. :/ Pitää ottaa ensi viikolla kiinni...<p>

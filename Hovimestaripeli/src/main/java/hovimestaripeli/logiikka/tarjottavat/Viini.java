@@ -2,7 +2,10 @@ package hovimestaripeli.logiikka.tarjottavat;
 import java.util.*;
 
 /**
- * "Hot potato, off his drawers, Puck will make amends!"
+ * Pelin ydinasia. Viinintuntemus ratkaisee suurelta osin, voittaako vai häviääkö pelin.
+ * Viinillä on väri (käytännössä viinityyppi: puna-, valko-, kuohu-, rosee- ja jälkiruokaviini),
+ * lista rypäleistä, hinta, laatu (0-5), vahvuus alkoholiprosenttina sekä valmistusmaa.
+ * 
  * @author amparkki
  */
 public class Viini {
@@ -113,7 +116,9 @@ public class Viini {
 
     /**
      *
-     * Tosiaan, tää on aika tarpeen.
+     * Viineillä on hashCode() ja equals-metodit, jotta voidaan verrata arvottaessa,
+     * onko sama viini tulossa listalle useamman kerran. Viinin jokainen aspekti vaikuttaa
+     * samuuteen.
      */
     @Override
   public int hashCode(){

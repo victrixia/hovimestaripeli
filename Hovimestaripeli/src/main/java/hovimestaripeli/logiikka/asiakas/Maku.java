@@ -1,7 +1,12 @@
 package hovimestaripeli.logiikka.asiakas;
 
 /**
- * "Hot potato, office drawers, Puck will make amends!"
+ * Maku määrittelee asiakkaan yleismaun, suosikit, inhokit sekä budjetin ala- ja ylärajan. 
+ * 
+ * Yleismaku: Mistä viinityypistä pitää eniten, antaa pienen lisäbonuksen.
+ * Budjetin alittaminen tai ylittäminen vähentää tippiä. Suosikit ja inhokit antavat suurehkon
+ * bonuksen tai rangaistuksen.
+ * 
  * @author amparkki
  */
 public class Maku {
