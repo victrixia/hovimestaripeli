@@ -20,7 +20,7 @@ public class Siirry implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        gk.paivitaPaneeli(gk.getFrame().getContentPane(), panel);
+        gk.paivitaPaneeli(panel);
     }
 
 }

@@ -1,6 +1,7 @@
 package hovimestaripeli.kayttoliittyma;
 
 import hovimestaripeli.logiikka.Peli;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -21,15 +22,16 @@ import javax.swing.JTextField;
  * @author amparkki
  */
 public class HovimestarinLuonti extends JPanel {
-    private Peli peli;
+   
     private GraafinenKali gk;
 
-    public HovimestarinLuonti(Peli peli, GraafinenKali gk) {
+    public HovimestarinLuonti(GraafinenKali gk) {
         super();
+        
+        this.gk = gk;
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         luoKomponentit();
-        this.peli = peli;
-        this.gk = gk;
+       
     }
 
     private void luoKomponentit() {
@@ -44,14 +46,15 @@ public class HovimestarinLuonti extends JPanel {
         alareuna.setLayout(new FlowLayout());
 
         JLabel nimitxt = new JLabel("Nimi: ");
-        JTextField nimiKentta = new JTextField(1);
+        JTextField nimiKentta = new JTextField(20);
         
 
         JButton uusiNappi = new JButton("Allons-y!");
         
         
-        uusiNappi.addActionListener(new HovimestarinLisaysKuuntelija(nimiKentta, peli));
-        uusiNappi.addActionListener(new Siirry(gk, new Pelitila()));
+//        uusiNappi.addActionListener(new HovimestarinLisaysKuuntelija(nimiKentta, gk));
+         uusiNappi.addActionListener(new Siirry(gk, new Pelitila(gk)));
+        
 
         alareuna.add(nimitxt);
         
@@ -67,5 +70,6 @@ public class HovimestarinLuonti extends JPanel {
         this.add(alareuna);
         
     }
+   
 
 }

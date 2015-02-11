@@ -14,12 +14,14 @@ import javax.swing.JTextField;
 public class HovimestarinLisaysKuuntelija implements ActionListener{
     
     private JTextField syote;
+    private GraafinenKali gk;
     private Peli peli;
 
-    public HovimestarinLisaysKuuntelija(JTextField syote, Peli peli) {
+    public HovimestarinLisaysKuuntelija(JTextField syote, GraafinenKali gk) {
         
         this.syote = syote;
-        this.peli = peli;
+        this.gk = gk;
+        this.peli = gk.getPeli();
     }
     
     
@@ -29,6 +31,8 @@ public class HovimestarinLisaysKuuntelija implements ActionListener{
         
         Hovimestari hm = new Hovimestari(syote.getText());
         peli.setHovimestari(hm);
+        gk.paivitaPaneeli(new Pelitila(gk));
+        
         
     }
 

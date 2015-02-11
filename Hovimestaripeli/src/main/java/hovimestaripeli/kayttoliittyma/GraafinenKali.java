@@ -51,7 +51,7 @@ public class GraafinenKali implements Runnable {
 
         container.add(new JLabel("Tervetuloa hovimestaripeliin!"));
         JButton uusiPeli = new JButton("Luo uusi hovimestari");
-        uusiPeli.addActionListener(new Siirry(this, new HovimestarinLuonti(peli, this)));
+        uusiPeli.addActionListener(new Siirry(this, new HovimestarinLuonti(this)));
         container.add(uusiPeli);
 
     }
@@ -60,11 +60,16 @@ public class GraafinenKali implements Runnable {
         return frame;
     }
 
-    public void paivitaPaneeli(Container container, JPanel panel) {
+    public void paivitaPaneeli(JPanel panel) {
         frame.getContentPane().removeAll();
-        container.add(panel);
+        frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
 
+    }
+
+    public Peli getPeli() {
+        return this.peli;
+    
     }
 }
