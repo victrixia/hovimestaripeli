@@ -1,6 +1,6 @@
 package hovimestaripeli.kayttoliittyma;
 
-import java.awt.Container;
+import hovimestaripeli.logiikka.Peli;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,24 +10,30 @@ import javax.swing.JPanel;
  *
  * @author amparkki
  */
-class Pelitila extends JPanel {
+public class Pelitila extends JPanel {
 
     GraafinenKali gk;
+    Peli peli;
 
     public Pelitila(GraafinenKali gk) {
 
         super();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.gk = gk;
+        this.peli = gk.getPeli();
         luoKomponentit();
 
     }
 
     private void luoKomponentit() {
 
-        this.add(new JLabel("Tervetuloa peliin!"));
-        this.add(new AsiakasPaneeli());
-        this.add(new ValikkoPaneeli());
+        this.add(new JLabel("Tervetuloa peliin, " + peli.getHovimestari().getNimi() + "!" ));
+        this.add(new AsiakasPaneeli(gk));
+        this.add(new Pelivalikko(gk));
+//        this.add(new ValikkoPaneeli());
     }
+  
+    
+    
 
 }

@@ -1,4 +1,5 @@
-package hovimestaripeli.kayttoliittyma;
+package hovimestaripeli.kayttoliittyma.tapahtumakuuntelija;
+import hovimestaripeli.kayttoliittyma.GraafinenKali;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

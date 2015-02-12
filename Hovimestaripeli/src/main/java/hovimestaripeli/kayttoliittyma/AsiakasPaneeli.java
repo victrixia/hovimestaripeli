@@ -1,5 +1,7 @@
 package hovimestaripeli.kayttoliittyma;
 
+import hovimestaripeli.logiikka.Peli;
+import hovimestaripeli.logiikka.asiakas.Asiakas;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
@@ -16,9 +18,17 @@ import javax.swing.JRadioButton;
  */
 class AsiakasPaneeli extends JPanel {
 
-    public AsiakasPaneeli() {
+    Peli peli;
+    Asiakas asiakas;
+    GraafinenKali gk;
+
+    public AsiakasPaneeli(GraafinenKali gk) {
 
         super();
+        this.gk = gk;
+        this.asiakas = gk.getPeli().getAsiakas();
+        this.peli = gk.getPeli();
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         luoKomponentit();
 
@@ -26,44 +36,12 @@ class AsiakasPaneeli extends JPanel {
 
     private void luoKomponentit() {
 
-        add(new JLabel("Assi Asiakas"));
-        
+        add(new JLabel("Asiakkaaksesi saapuu " + asiakas));
+
         //Tähän tulee asiakkaaseen liittyvä kuva
-        add(new JLabel("Assin Ateria"));
-        add(suosituksenTulos());
-        add(new JLabel("Alkuruuaksi on x. Minkä viinin valitset tarjottavaksi?"));
-        add(viinivalinta());
-        JButton suositus = new JButton("Suosittele!");
-        suositus.addActionListener(null);
-        
-        add(suositus);
+      
 
     }
 
-    private JPanel viinivalinta() {
-        JPanel valintalaatikko = new JPanel();
-        valintalaatikko.setLayout(new BoxLayout(valintalaatikko, BoxLayout.Y_AXIS));
-        JRadioButton eka = new JRadioButton("eka vaihtoehto");
-        JRadioButton toka = new JRadioButton("toka vaihtoehto");
-        JRadioButton kolmas = new JRadioButton("kolmas vaihtoehto");
-        
-        ButtonGroup ryhma = new ButtonGroup();
-        ryhma.add(eka);
-        ryhma.add(toka);
-        ryhma.add(kolmas);
-        valintalaatikko.add(eka);
-        valintalaatikko.add(toka);
-        valintalaatikko.add(kolmas);
-        
-        return valintalaatikko;
-    }
-    
-    private JPanel suosituksenTulos(){
-        JPanel tulos = new JPanel();
-        tulos.add(new JLabel("Tähän tulee yhteenveto asiakkaan reaktiosta"));
-        
-        return tulos;
-    
-    }
 
 }

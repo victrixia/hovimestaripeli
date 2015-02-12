@@ -233,4 +233,11 @@ public class Asiakas {
         return level;
     }
 
+    @Override
+    public String toString(){
+        
+        // Tähän lisätään vielä jokaiseen asiakkaaseen liittyvä lyhyt kuvaus, joka antaa pelaajalle vinkkiä
+        // siitä, mitä kannattaisi lähteä suosittelemaan.
+        return nimi + " Level " + level; 
+    }
 }

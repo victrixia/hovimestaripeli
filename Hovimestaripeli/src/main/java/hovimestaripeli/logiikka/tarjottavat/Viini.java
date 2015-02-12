@@ -19,21 +19,24 @@ public class Viini {
 
     public Viini (int vari, String[] rypaleet, int hinta, int laatu, int vahvuus, String maa) {
         
-        if (vari <= 0 || vari >=6){
-            throw new Error ("Värin voi määritellä väliltä 1-5");
-        }
+//        if (vari <= 0 || vari >=6){
+//            throw new Error ("Värin voi määritellä väliltä 1-5");
+//        }
+//        
+//        if (hinta <= 0){
+//            throw new Error ("Et voi jakaa viiniä ilmaiseksi pois!");
+//        }
+//        
+//        if (vahvuus < 0 || vahvuus >= 96 ){
+//            throw new Error ("Viinin alkoholiprosentti ei voi olla negatiivinen eikä yli 96!");
+//        }
+//        
+//        if (laatu < 0 || laatu > 5){
+//            throw new Error ("Laadun voi määritellä väliltä 0-5");
+//        }
         
-        if (hinta <= 0){
-            throw new Error ("Et voi jakaa viiniä ilmaiseksi pois!");
-        }
+        //  Koska viinejä ei voi luoda itse, on oikeastaan ihan sama onko ylläolevaa määritelty. Siispä pois.
         
-        if (vahvuus < 0 || vahvuus >= 96 ){
-            throw new Error ("Viinin alkoholiprosentti ei voi olla negatiivinen eikä yli 96!");
-        }
-        
-        if (laatu < 0 || laatu > 5){
-            throw new Error ("Laadun voi määritellä väliltä 0-5");
-        }
         this.vari = vari;
         this.rypaleet = rypaleet;
         this.hinta = hinta;

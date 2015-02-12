@@ -1,5 +1,6 @@
 package hovimestaripeli.kayttoliittyma;
 
+import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.Siirry;
 import hovimestaripeli.logiikka.Peli;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -34,7 +35,7 @@ public class GraafinenKali implements Runnable {
     public void run() {
 
         frame = new JFrame("Hovimestaripeli");
-        frame.setPreferredSize(new Dimension(500, 600));
+        frame.setPreferredSize(new Dimension(800, 600));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +47,7 @@ public class GraafinenKali implements Runnable {
     }
 
 
-    private void aloitusruutu(Container container) {
+    private void aloitusruutu(Container container) {        // tän voi korvata jollain geneerisemmällä myöhemmin
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         container.add(new JLabel("Tervetuloa hovimestaripeliin!"));

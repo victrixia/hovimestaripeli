@@ -1,5 +1,7 @@
 package hovimestaripeli.kayttoliittyma;
 
+import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.HovimestarinLisaysKuuntelija;
+import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.Siirry;
 import hovimestaripeli.logiikka.Peli;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -52,8 +54,8 @@ public class HovimestarinLuonti extends JPanel {
         JButton uusiNappi = new JButton("Allons-y!");
         
         
-//        uusiNappi.addActionListener(new HovimestarinLisaysKuuntelija(nimiKentta, gk));
-         uusiNappi.addActionListener(new Siirry(gk, new Pelitila(gk)));
+        uusiNappi.addActionListener(new HovimestarinLisaysKuuntelija(nimiKentta, gk));
+//         uusiNappi.addActionListener(new Siirry(gk, new Pelitila(gk)));
         
 
         alareuna.add(nimitxt);
