@@ -38,8 +38,6 @@ public class PeliTest {
     @Before
     public void setUp() {
         peli = new Peli();
-        Asiakas a = new Asiakas("asiakas", 100, new Maku(), 1);
-        peli.setAsiakas(a);
         Hovimestari hm = new Hovimestari();
         peli.setHovimestari(hm);
         
@@ -52,13 +50,13 @@ public class PeliTest {
     public void tearDown() {
     }
 
-    @Test
-    public void viinienArpominenTuottaaOikeanKokoisenListan() {
-
-        ArrayList<Viini> viinit = peli.arvoViinit();
-
-        assertEquals(3, viinit.size());
-    }
+//    @Test
+//    public void viinienArpominenTuottaaOikeanKokoisenListan() {
+//
+//        ArrayList<Viini> viinit = peli.arvoViinit();
+//
+//        assertEquals(3, viinit.size());
+//    }
 
     @Test
     public void arvotullaViinilistallaEiSamojaViineja() {

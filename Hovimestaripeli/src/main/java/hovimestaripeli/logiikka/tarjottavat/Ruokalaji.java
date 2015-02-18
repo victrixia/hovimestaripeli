@@ -57,6 +57,9 @@ public class Ruokalaji {
         return kuvaus;
     }
     
-    
+    @Override
+    public String toString(){
+        return getKuvaus();
+    }
 
 }

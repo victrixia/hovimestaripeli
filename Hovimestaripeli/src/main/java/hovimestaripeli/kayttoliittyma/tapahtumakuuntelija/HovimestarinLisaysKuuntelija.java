@@ -34,7 +34,7 @@ public class HovimestarinLisaysKuuntelija implements ActionListener{
         // Lisää tähän vielä virheen käsittely ts. jos yrittää antaa liian lyhyen nimen, peli ei hyväksy sitä
         Hovimestari hm = new Hovimestari(nimikentta.getText());
         peli.setHovimestari(hm);
-        peli.kierros(1);
+       
         gk.paivitaPaneeli(new Pelitila(gk));
         
         

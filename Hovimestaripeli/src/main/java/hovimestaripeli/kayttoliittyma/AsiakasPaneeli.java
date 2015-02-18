@@ -26,7 +26,7 @@ class AsiakasPaneeli extends JPanel {
 
         super();
         this.gk = gk;
-        this.asiakas = gk.getPeli().getAsiakas();
+        this.asiakas = gk.getPeli().getKierros().getAsiakas();
         this.peli = gk.getPeli();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

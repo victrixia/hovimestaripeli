@@ -1,7 +1,10 @@
 package hovimestaripeli.kayttoliittyma;
 
+import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.SuositusKuuntelija;
 import hovimestaripeli.logiikka.Peli;
 import hovimestaripeli.logiikka.asiakas.Asiakas;
+import hovimestaripeli.logiikka.tarjottavat.Viini;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,25 +27,32 @@ public class Pelivalikko extends JPanel {
         super();
         this.gk = gk;
         this.peli = gk.getPeli();
-        this.asiakas = gk.getPeli().getAsiakas();
+        this.asiakas = gk.getPeli().getKierros().getAsiakas();
         
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         luoKomponentit();
 
     }
 
+
     private void luoKomponentit() {
         add(suosituksenTulos());
-        add(new JLabel("Alkuruuaksi on x. Minkä viinin valitset tarjottavaksi?"));
+        
+        add(new JLabel("Asiakkaalle tarjoillaan " + peli.getKierros().getRuokalaji().toString() + ". Minkä viinin valitset tarjottavaksi?"));
         add(viinivalinta());
     }
 
     private JPanel viinivalinta() {
         JPanel valintalaatikko = new JPanel();
+        ArrayList<Viini> viinit;
+        viinit = peli.getKierros().arvoViinit();
         valintalaatikko.setLayout(new BoxLayout(valintalaatikko, BoxLayout.Y_AXIS));
-        JRadioButton eka = new JRadioButton("eka vaihtoehto");
-        JRadioButton toka = new JRadioButton("toka vaihtoehto");
-        JRadioButton kolmas = new JRadioButton("kolmas vaihtoehto");
+        JRadioButton eka = new JRadioButton(viinit.get(0).toString());
+        eka.setActionCommand("0");
+        JRadioButton toka = new JRadioButton(viinit.get(1).toString());
+        toka.setActionCommand("1");
+        JRadioButton kolmas = new JRadioButton(viinit.get(2).toString());
+        kolmas.setActionCommand("2");
 
         ButtonGroup ryhma = new ButtonGroup();
         ryhma.add(eka);
@@ -53,7 +63,7 @@ public class Pelivalikko extends JPanel {
         valintalaatikko.add(kolmas);
         
         JButton suositus = new JButton("Suosittele!");
-        suositus.addActionListener(null);
+        suositus.addActionListener(new SuositusKuuntelija(gk, ryhma, viinit));
 
         valintalaatikko.add(suositus);
 
