@@ -50,41 +50,21 @@ public class PeliTest {
     public void tearDown() {
     }
 
-//    @Test
-//    public void viinienArpominenTuottaaOikeanKokoisenListan() {
-//
-//        ArrayList<Viini> viinit = peli.arvoViinit();
-//
-//        assertEquals(3, viinit.size());
-//    }
-
     @Test
-    public void arvotullaViinilistallaEiSamojaViineja() {
-        
-        ArrayList<Viini> viinit = peli.arvoViinit();
-
-        Viini a = viinit.get(0);
-        Viini b = viinit.get(1);
-        Viini c = viinit.get(2);
-
-        assertEquals(false, (a.equals(b) && b.equals(c) && c.equals(a)));
-
-    }
+    public void uusiKierrosKasvattaaKierroslukua(){
     
-    @Test
-    public void valitaReaktionJalkeenAsiakkaanReaktioOikein(){
-        peli.valitaReaktio(v, rl);
+        peli.uusiKierros();
         
-        assertEquals(27, peli.getAsiakas().getTyytyvaisyys());
+        assertEquals(2, peli.getKierrosluku());
     
     }
     
-    @Test
-    public void valitaReaktionJalkeenHovimestarinTippiOnKasvanutOikein(){
-        peli.valitaReaktio(v, rl);
-        
-        assertEquals(12, peli.getHovimestari().getTippi());
-    
+    @Test 
+    public void uusiKierrosKomennonJalkeenKierrosNollaantuu(){
+        peli.getKierros().siirrySeuraavaanRuokalajiin();
+        peli.uusiKierros();
+        assertEquals(peli.getKierros().getVaihe(), 1);
     }
-
+    
+  
 }

@@ -1,6 +1,7 @@
 package hovimestaripeli.kayttoliittyma;
 
 import hovimestaripeli.logiikka.Peli;
+import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +19,7 @@ public class Pelitila extends JPanel {
     public Pelitila(GraafinenKali gk) {
 
         super();
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridLayout(3,1));
         this.gk = gk;
         this.peli = gk.getPeli();
         luoKomponentit();
@@ -27,7 +28,7 @@ public class Pelitila extends JPanel {
 
     private void luoKomponentit() {
 
-        this.add(new JLabel("Tervetuloa peliin, " + peli.getHovimestari().getNimi() + "!" ));
+        this.add(new JLabel("Uusi asiakas saapuu! Oletko valmis, " + peli.getHovimestari().getNimi() + "?" ));
         this.add(new AsiakasPaneeli(gk));
         this.add(new Pelivalikko(gk));
 //        this.add(new ValikkoPaneeli());

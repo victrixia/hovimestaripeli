@@ -1,6 +1,8 @@
 package hovimestaripeli.kayttoliittyma.tapahtumakuuntelija;
 
+import hovimestaripeli.kayttoliittyma.GameOver;
 import hovimestaripeli.kayttoliittyma.GraafinenKali;
+import hovimestaripeli.kayttoliittyma.Pelitila;
 import hovimestaripeli.kayttoliittyma.Pelivalikko;
 import hovimestaripeli.logiikka.Peli;
 import hovimestaripeli.logiikka.asiakas.Asiakas;
@@ -38,11 +40,19 @@ public class SuositusKuuntelija implements ActionListener {
         Viini valinta = viinit.get(numero);
 
 //        System.out.println("valittiin viini:" + valinta);
-            // jatka tästä: anna asiakkaalle reagoitavaksi valinta ja välitä reaktio eteenpäin kälille
-    
-        asiakas.reagoi(valinta, peli.getRuokalaji());
+        // jatka tästä: anna asiakkaalle reagoitavaksi valinta ja välitä reaktio eteenpäin kälille
+        peli.getKierros().valitaReaktio(valinta);
+
+        // tarkista tässä onko asiakas liian kännissä; jos on, niin renderöidään game over -paneeli :D
         peli.siirryEteenpain();
-        gk.paivitaPaneeli(new Pelivalikko(gk));
+        
+        
+        if (peli.getKierros().getVaihe() == 4 || asiakas.getHumala() > 150) {
+            
+            gk.paivitaPaneeli(new GameOver(gk));
+        } else {
+            gk.paivitaPaneeli(new Pelitila(gk));
+        }
     }
 
 }

@@ -17,16 +17,16 @@ public class Peli {
 
     private Hovimestari hovimestari;
     private Kierros kierros;
+    private int kierrosluku;
 
     public Peli() {
         this.kierros = new Kierros(this);
+        this.kierrosluku = 1;
     }
 
     public void siirryEteenpain() {
         kierros.siirrySeuraavaanRuokalajiin();
-        if (kierros.getVaihe() == 4) {
-            paatos();
-        }
+        
     }
 
  
@@ -49,16 +49,22 @@ public class Peli {
         return kierros.getRuokalaji();
     }
 
-    private void paatos() {
-        // joo tee tähän yhteenveto yhdestä kierroksesta ja käliin mahdollisuus pelata uusi kierros
-    }
-
     public Kierros getKierros() {
         return this.kierros;
     }
     
+    /**
+     * Peli jatkuu uudella asiakkaalla ja uudella aterialla. Asiakkaan level määrittyy 
+     * pelattujen kierrosten mukaan.
+     */
+    
     public void uusiKierros(){
         this.kierros = new Kierros(this);
+        this.kierrosluku++;         // Kun asiakkaita on enemmän, tämä määrittelee seuraavan asiakkaan Levelin
+    }
+    
+    public int getKierrosluku(){
+        return this.kierrosluku;
     }
 
 }

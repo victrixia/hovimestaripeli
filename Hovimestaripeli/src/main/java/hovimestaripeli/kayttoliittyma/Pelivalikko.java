@@ -72,8 +72,11 @@ public class Pelivalikko extends JPanel {
 
     private JPanel suosituksenTulos() {
         JPanel tulos = new JPanel();
+        tulos.setLayout(new BoxLayout(tulos, BoxLayout.Y_AXIS));
+        
         tulos.add(new JLabel("Asiakkaan tyytyväisyys tällä hetkellä " + asiakas.getTyytyvaisyys()));
-        tulos.add(new JLabel("Tippisi kierroksen jälkeen: " + peli.getHovimestari().getTippi()));
+        tulos.add(new JLabel("Tippisi ennen nykyistä asiakasta: " + peli.getHovimestari().getTippi()));
+        tulos.add(new JLabel(peli.getAsiakas().toString() + " on antamassa sinulle tippiä " + peli.getKierros().getTippi()));
         return tulos;
 
     }

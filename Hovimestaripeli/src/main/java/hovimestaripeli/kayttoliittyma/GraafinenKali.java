@@ -35,7 +35,7 @@ public class GraafinenKali implements Runnable {
     public void run() {
 
         frame = new JFrame("Hovimestaripeli");
-        frame.setPreferredSize(new Dimension(800, 600));
+        frame.setPreferredSize(new Dimension(1000, 600));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,5 +72,9 @@ public class GraafinenKali implements Runnable {
     public Peli getPeli() {
         return this.peli;
     
+    }
+    
+    public void restart(){
+        this.peli = new Peli();
     }
 }

@@ -6,7 +6,9 @@ import java.util.*;
 
 /**
  * Koska kurssi ei painotu tietokantoihin, toistaiseksi hoidetaan viinien ja
- * ruokalajien tallentaminen ihan näin kovakoodaamalla ne listoihin.
+ * ruokalajien tallentaminen ihan näin kovakoodaamalla ne listoihin.Jos ois tosi
+ * hifi niin vois tehdä enumin missä on rypäleiden ja/tai viinityyppien nimet,
+ * mut olkoon nyt.
  *
  * @author amparkki
  */
@@ -16,6 +18,7 @@ public class TarjottavienValiaikaisvarasto {
     private ArrayList<Ruokalaji> alkuruokalajit;
     private ArrayList<Ruokalaji> paaruokalajit;
     private ArrayList<Ruokalaji> jalkiruokalajit;
+    private final ArrayList<Viini> jalkiruokaviinit;
 
     public TarjottavienValiaikaisvarasto() {
 
@@ -34,17 +37,23 @@ public class TarjottavienValiaikaisvarasto {
             new Ruokalaji(2, "Blinit Smetanalla, Muikunmädillä ja sipulisilpulla", new String[]{
                 "Riesling", "Pinot Noir, Pinot Meunier, Chardonnay"}, new String[]{"Malbec", "Brunello", "Amarone"}, 2),
             new Ruokalaji(2, "Kermainen kanapasta parmesanilla ja kirsikkatomaateilla", new String[]{"Chardonnay", "Viognier"}, new String[]{"Amarone", "Tempranillo", "Carmenere", "Ripasso"}, 2)};
-        
+
         this.paaruokalajit = new ArrayList<>(Arrays.asList(pr));
-        
+
         Ruokalaji[] jr = new Ruokalaji[]{
-        new Ruokalaji(3, "Suklaakakku tyrnikastikkeella", new String[]{"Portviini","Madeira","Riesling Trockenbeerenauslese"}, new String[]{"Moscato d'Asti"}, 5),
-            new Ruokalaji(3, "Sitruunamarenkitartaletti mantelipohjalla", new String[]{"Moscato d'Asti"}, new String[]{"Tokaji","Sauternes","Portviini"},5)};
-        
+            new Ruokalaji(3, "Suklaakakku tyrnikastikkeella", new String[]{"Portviini", "Madeira", "Riesling Trockenbeerenauslese"}, new String[]{"Moscato d'Asti"}, 5),
+            new Ruokalaji(3, "Sitruunamarenkitartaletti mantelipohjalla", new String[]{"Moscato d'Asti"}, new String[]{"Tokaji", "Sauternes", "Portviini"}, 5)};
+
         this.jalkiruokalajit = new ArrayList<>(Arrays.asList(jr));
-        }
-    
-    
+
+        Viini[] jrv = new Viini[]{
+            new Viini(5, new String[]{"Portviini"}, 13, 4, 16, "Portugali"), new Viini(5, new String[]{"Moscato d'Asti"}, 10, 3, 6, "Italia"),
+            new Viini(5, new String[]{"Riesling Trockenbeerenauslese"}, 16, 4, 12, "Saksa"),
+            new Viini(5, new String[]{"Sauternes"}, 16, 5, 12, "Ranska")
+        };
+
+        this.jalkiruokaviinit = new ArrayList<>(Arrays.asList(jrv));
+    }
 
     public ArrayList<Viini> getViinit() {
         return viinit;
@@ -60,5 +69,9 @@ public class TarjottavienValiaikaisvarasto {
 
     public ArrayList<Ruokalaji> getJalkiruokalajit() {
         return this.jalkiruokalajit;
+    }
+
+    public ArrayList<Viini> getJalkiruokaViinit() {
+        return this.jalkiruokaviinit;
     }
 }
