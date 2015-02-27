@@ -31,6 +31,10 @@ public class Peli {
 
     }
 
+    
+    /**
+     * Kutsuu kierroksen siirtymistä eteenpäin, tarkoitettu kommunikaatiometodiksi kälille
+     */
     public void siirryEteenpain() {
         kierros.siirrySeuraavaanRuokalajiin();
 
@@ -71,6 +75,10 @@ public class Peli {
         return this.kierrosluku;
     }
 
+    /**
+     * 
+     *  @return tarkistaa käliä varten onko kierros menossa alkuruuassa, jotta seuraavasta asiakkaasta kertova popup saadaan esiin.
+     */
     public boolean onAlkuruoka() {
         return kierros.getVaihe() == 1;
     }

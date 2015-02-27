@@ -99,8 +99,8 @@ public class Viini {
             v = "Jälkiruokaviini";
         }
 
-        return v + ", " + maa + ". \nRypäleet (ja tyyli): " + getRypaleetString() + ". Hinta: "
-                + hinta + "€, \nLaatu: " + laatu + " tähteä, Alkoholiprosentti: " + vahvuus + ".";
+        return v + ", " + maa + ". Rypäleet (ja tyyli): " + getRypaleetString() + ". Hinta: "
+                + hinta + "€, Laatu: " + laatu + " tähteä, Alkoholiprosentti: " + vahvuus + ".";
     }
 
     /**

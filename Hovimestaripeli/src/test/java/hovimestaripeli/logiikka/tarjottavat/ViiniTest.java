@@ -43,14 +43,14 @@ public class ViiniTest {
 
         Viini v = new Viini();
 
-        assertEquals(v.toString(), "Valkoviini, Saksa. Rypäleet: Riesling. Hinta: 10€, Laatu: 4 tähteä, Alkoholiprosentti: 12.");
+        assertEquals(v.toString(), "Valkoviini, Saksa. Rypäleet (ja tyyli): Riesling. Hinta: 10€, Laatu: 4 tähteä, Alkoholiprosentti: 12.");
 
     }
 
     @Test
     public void toStringToimiiOikeinUseallaRypaleella() {
 
-        assertEquals(chardonnay.toString(), "Valkoviini, USA. Rypäleet: Chardonnay, Viognier. Hinta: 7€, Laatu: 3 tähteä, Alkoholiprosentti: 14.");
+        assertEquals(chardonnay.toString(), "Valkoviini, USA. Rypäleet (ja tyyli): Chardonnay, Viognier. Hinta: 7€, Laatu: 3 tähteä, Alkoholiprosentti: 14.");
 
     }
 

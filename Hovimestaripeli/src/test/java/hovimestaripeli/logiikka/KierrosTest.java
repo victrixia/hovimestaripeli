@@ -79,13 +79,13 @@ public class KierrosTest {
     
     }
     
-    @Test
-    public void valitaReaktionJalkeenAsiakkaanPotentiaalinenTippiOnKasvanutOikein(){
-        kierros.valitaReaktio(v);
-        
-        assertEquals(12, kierros.getTippi());
-    
-    }
+//    @Test             // obsolete, mukana randomgenerointia eikä tarkkaa arvoa voi enää tarkistaa
+//    public void valitaReaktionJalkeenAsiakkaanPotentiaalinenTippiOnKasvanutOikein(){
+//        kierros.valitaReaktio(v);
+//        
+//        assertEquals(12, kierros.getTippi());
+//    
+//    }
     
     @Test
     public void hovimestarinTippiEiKasvaAlkuJaPaaRuuanAikana(){

@@ -1,0 +1,16 @@
+**Hovimestaripelin rakennekuvaus**
+
+Pelaaja kommunikoi graafisen käyttöliittymän kanssa. <p>
+
+Graafiseen käyttöliittymään liittyy Peli-luokan ilmentymä, jonka kautta kaikki informaatio käsitellään tapahtumakuuntelijoissa. <p>
+
+Peli-olioon liittyy aina yksi Kierros-olio kerrallaan. Kierros-olio osaa tehdä kaikkea olennaista yhteen asiakaskohtaamiseen liittyvää asiaa, kuten arpoa tarjoiltaviksi valittavat viinit ja ruokalajit ja kommunikoida Asiakas-luokan kanssa. <p>
+
+Peliolio alustaa myös peliin liittyvän asiakkaan, mutta Kierros päivittää Pelille uuden asiakkaan sen mukaan, kuinka monta kierrosta on jo pelattu. <p>
+
+Logiikka-pakkauksessa on myös Hovimestari, joka on pelin yksinkertaisin olento - sillä on vain nimi ja tipin määrä. Peliin liittyy aina vain yksi hovimestari, eli pelaajan oma hahmo.<p>
+
+Asiakkaaseen liittyy Maku-luokka, joka määrittelee mistä viinityypeistä ja rypäleistä asiakas pitää, mitä hän inhoaa, mikä hänen hintahaarukkansa on. Lisäksi pakkauksessa on luokka RypaleidenVertailu, jossa on yksi yleismetodi rypälelistojen vertailua varten. 
+<p>
+Pakkauksessa Tarjottavat on luokat Viini ja Ruokalaji, jotka ovat asiakkaalle tarjottavia asioita. Ruokalajit tietävät, minkälaiset viinit niille sopivat parhaiten, mutta niihin ei varsinaisesti liity viiniolioita, vaan vertailu käydään rypälelajikkeiden perusteella.
+<p>

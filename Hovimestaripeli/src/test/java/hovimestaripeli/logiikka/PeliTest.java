@@ -55,7 +55,7 @@ public class PeliTest {
     
         peli.uusiKierros();
         
-        assertEquals(2, peli.getKierrosluku());
+        assertEquals(1, peli.getKierrosluku());
     
     }
     

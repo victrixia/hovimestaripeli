@@ -1,7 +1,6 @@
 package hovimestaripeli.kayttoliittyma;
 
 import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.HovimestarinLisaysKuuntelija;
-import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.Siirry;
 import hovimestaripeli.logiikka.Peli;
 import java.awt.Container;
 import java.awt.Dimension;

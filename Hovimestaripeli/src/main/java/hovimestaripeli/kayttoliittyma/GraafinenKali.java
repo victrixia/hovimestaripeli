@@ -1,6 +1,5 @@
 package hovimestaripeli.kayttoliittyma;
 
-import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.Siirry;
 import hovimestaripeli.logiikka.Peli;
 import java.awt.BorderLayout;
 import java.awt.Container;

@@ -64,6 +64,10 @@ public class Kierros {
         
     }
     
+    /**
+     * Arpoo ruokalajin sen mukaan, mikä aterian vaihe on menossa. Alku- pää- ja jälkiruoilla on omat listansa.
+     */
+    
     private void arvoRuokalaji() {            //Alku- pää- vai jälkiruoka
         Random random = new Random();
         

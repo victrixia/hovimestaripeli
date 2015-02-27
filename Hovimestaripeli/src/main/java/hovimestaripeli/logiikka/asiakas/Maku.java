@@ -41,11 +41,23 @@ public class Maku {
     public int getAlaraja() {
         return alaraja;
     }
+    
+    /**
+     * 
+     * @param rypaleet
+     * @return true jos rypaleet ovat asiakkaan suosikkilistalla.
+     */
 
     public boolean onSuosikki(String[] rypaleet) {
         
         return vertaa.onkoRypaleetListalla(suosikki, rypaleet);
     }
+    
+    /**
+     * 
+     * @param rypaleet
+     * @return palauttaa true jos asiakkas ei diggaa rypäleistä. 
+     */
 
     public boolean onInhokki(String[] rypaleet) {
         
