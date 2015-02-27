@@ -30,7 +30,7 @@ public class ViiniTest {
     @Before
     public void setUp() {
 
-        chardonnay = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
+        chardonnay = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "USA");
     }
 
     @After
@@ -59,48 +59,48 @@ public class ViiniTest {
         Viini a = chardonnay;
         Viini b = chardonnay;
 
-        assertEquals(true, a.equals(b));
+        assertTrue(a.equals(b));
 
     }
 
     @Test
     public void equalsPalauttaaFalseJosViinitEriVahvuisia() {
         Viini a = chardonnay;
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 13, "USA");    // pienikin muutos pitää riittää
+        Viini b = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Viognier"}, 7, 3, 13, "USA");    // pienikin muutos pitää riittää
 
-        assertEquals(false, a.equals(b));
+        assertFalse(a.equals(b));
     }
 
     @Test
     public void equalsPalauttaaFalseJosViineissaEriRypaleet() {
         Viini a = chardonnay;
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Semillon"}, 7, 3, 14, "USA");    // pienikin muutos pitää riittää
+        Viini b = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Semillon"}, 7, 3, 14, "USA");    // pienikin muutos pitää riittää
 
-        assertEquals(false, a.equals(b));
+        assertFalse(a.equals(b));
     }
 
     @Test
     public void equalsPalauttaaFalseJosViinitEriHintaisia() {
         Viini a = chardonnay;
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 8, 3, 14, "USA");    // pienikin muutos pitää riittää
+        Viini b = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Viognier"}, 8, 3, 14, "USA");    // pienikin muutos pitää riittää
 
-        assertEquals(false, a.equals(b));
+        assertFalse(a.equals(b));
     }
 
     @Test
     public void equalsPalauttaaFalseJosViineillaEriLaatu() {
         Viini a = chardonnay;
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 1, 14, "USA");    // pienikin muutos pitää riittää
+        Viini b = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Viognier"}, 7, 1, 14, "USA");    // pienikin muutos pitää riittää
 
-        assertEquals(false, a.equals(b));
+        assertFalse(a.equals(b));
     }
 
     @Test
     public void equalsPalauttaaFalseJosViinitEriMaasta() {
         Viini a = chardonnay;
-        Viini b = new Viini(2, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "Australia");    // pienikin muutos pitää riittää
+        Viini b = new Viini(ViininVari.VALKO, new String[]{"Chardonnay", "Viognier"}, 7, 3, 14, "Australia");    // pienikin muutos pitää riittää
 
-        assertEquals(false, a.equals(b));
+        assertFalse(a.equals(b));
     }
 
 }

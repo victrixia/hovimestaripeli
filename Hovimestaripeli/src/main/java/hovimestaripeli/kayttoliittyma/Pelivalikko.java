@@ -4,9 +4,11 @@ import hovimestaripeli.kayttoliittyma.tapahtumakuuntelija.SuositusKuuntelija;
 import hovimestaripeli.logiikka.Peli;
 import hovimestaripeli.logiikka.asiakas.Asiakas;
 import hovimestaripeli.logiikka.tarjottavat.Viini;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,23 +24,23 @@ public class Pelivalikko extends JPanel {
     GraafinenKali gk;
     Peli peli;
     Asiakas asiakas;
-    
+
     public Pelivalikko(GraafinenKali gk) {
         super();
         this.gk = gk;
         this.peli = gk.getPeli();
         this.asiakas = gk.getPeli().getKierros().getAsiakas();
-        
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         luoKomponentit();
 
     }
 
-
     private void luoKomponentit() {
-        add(suosituksenTulos());
-        
-        add(new JLabel("Asiakkaalle tarjoillaan " + peli.getKierros().getRuokalaji().toString() + ". Minkä viinin valitset tarjottavaksi?"));
+
+        add(hovimestariInfo());
+        add(new JLabel("Asiakkaalle tarjoillaan " + peli.getKierros().getRuokalaji().toString() + "." ));
+        add(new JLabel("Minkä viinin valitset tarjottavaksi?"));
         add(viinivalinta());
     }
 
@@ -61,7 +63,7 @@ public class Pelivalikko extends JPanel {
         valintalaatikko.add(eka);
         valintalaatikko.add(toka);
         valintalaatikko.add(kolmas);
-        
+
         JButton suositus = new JButton("Suosittele!");
         suositus.addActionListener(new SuositusKuuntelija(gk, ryhma, viinit));
 
@@ -70,14 +72,15 @@ public class Pelivalikko extends JPanel {
         return valintalaatikko;
     }
 
-    private JPanel suosituksenTulos() {
-        JPanel tulos = new JPanel();
-        tulos.setLayout(new BoxLayout(tulos, BoxLayout.Y_AXIS));
-        
-        tulos.add(new JLabel("Asiakkaan tyytyväisyys tällä hetkellä " + asiakas.getTyytyvaisyys()));
-        tulos.add(new JLabel("Tippisi ennen nykyistä asiakasta: " + peli.getHovimestari().getTippi()));
-        tulos.add(new JLabel(peli.getAsiakas().toString() + " on antamassa sinulle tippiä " + peli.getKierros().getTippi()));
-        return tulos;
+    private JPanel hovimestariInfo() {
+        JPanel hminfo = new JPanel();
+        hminfo.setLayout(new BoxLayout(hminfo, BoxLayout.Y_AXIS));
 
+        hminfo.add(new JLabel("Illan hovimestarina toimii " + peli.getHovimestari().getNimi() + "."));
+        hminfo.add(new JLabel("Tippisi ennen nykyistä asiakasta: " + peli.getHovimestari().getTippi()));
+        hminfo.add(new JLabel(new ImageIcon(gk.getHovimestarinKuva())));
+
+        return hminfo;
     }
+
 }

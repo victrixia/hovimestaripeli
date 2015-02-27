@@ -1,5 +1,7 @@
 package hovimestaripeli.logiikka.asiakas;
 
+import hovimestaripeli.logiikka.tarjottavat.ViininVari;
+
 /**
  * Maku määrittelee asiakkaan yleismaun, suosikit, inhokit sekä budjetin ala- ja ylärajan. 
  * 
@@ -15,10 +17,11 @@ public class Maku {
     String[] inhokki;
     int alaraja;            // minkä hintaista halvempaa pitää loukkaavana
     int ylaraja;            // miten kalliiseen ei suostu
-    int yleismaku;          // Mikä viinityyppi maistuu parhaiten, pieni lisäbonus
+    ViininVari yleismaku;          // Mikä viinityyppi maistuu parhaiten, pieni lisäbonus
+    RypaleidenVertailu vertaa = new RypaleidenVertailu();
     
 
-    public Maku(int yleismaku, String[] suosikki, String[] inhokki, int alaraja, int ylaraja) {
+    public Maku(ViininVari yleismaku, String[] suosikki, String[] inhokki, int alaraja, int ylaraja) {
         this.suosikki = suosikki;
         this.inhokki = inhokki;
         this.ylaraja = ylaraja;
@@ -31,7 +34,7 @@ public class Maku {
         this.inhokki = new String[]{"Cabernet Sauvignon"};
         this.ylaraja = 20;
         this.alaraja = 7;
-        this.yleismaku = 2;
+        this.yleismaku = ViininVari.VALKO;
         
     }
 
@@ -39,19 +42,21 @@ public class Maku {
         return alaraja;
     }
 
-    public String[] getSuosikki() {
-        return suosikki;
+    public boolean onSuosikki(String[] rypaleet) {
+        
+        return vertaa.onkoRypaleetListalla(suosikki, rypaleet);
     }
 
-    public String[] getInhokki() {
-        return inhokki;
+    public boolean onInhokki(String[] rypaleet) {
+        
+        return vertaa.onkoRypaleetListalla(suosikki, rypaleet);
     }
 
     public int getYlaraja() {
         return ylaraja;
     }
 
-    public int getYleismaku() {
+    public ViininVari getYleismaku() {
         return yleismaku;
     }
 

@@ -1,7 +1,7 @@
 package hovimestaripeli.kayttoliittyma.tapahtumakuuntelija;
 
-import hovimestaripeli.kayttoliittyma.GameOver;
 import hovimestaripeli.kayttoliittyma.GraafinenKali;
+import hovimestaripeli.kayttoliittyma.HovimestarinLuonti;
 import hovimestaripeli.kayttoliittyma.Pelitila;
 import hovimestaripeli.kayttoliittyma.Pelivalikko;
 import hovimestaripeli.logiikka.Peli;
@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  * "Hot potato, off his drawers, Puck will make amends!"
@@ -39,20 +41,75 @@ public class SuositusKuuntelija implements ActionListener {
         int numero = Integer.parseInt(bg.getSelection().getActionCommand());
         Viini valinta = viinit.get(numero);
 
-//        System.out.println("valittiin viini:" + valinta);
-        // jatka tästä: anna asiakkaalle reagoitavaksi valinta ja välitä reaktio eteenpäin kälille
         peli.getKierros().valitaReaktio(valinta);
 
-        // tarkista tässä onko asiakas liian kännissä; jos on, niin renderöidään game over -paneeli :D
         peli.siirryEteenpain();
-        
-        
-        if (peli.getKierros().getVaihe() == 4 || asiakas.getHumala() > 150) {
-            
-            gk.paivitaPaneeli(new GameOver(gk));
+
+        if (peli.getKierros().getVaihe() == 4 || asiakas.getHumala() > 120) {
+
+            gameOver();
         } else {
+
             gk.paivitaPaneeli(new Pelitila(gk));
         }
+    }
+
+    private void gameOver() {
+
+        if (peli.getKierrosluku() >= 5) {
+            peliPaattyi();
+        } else {
+
+            String viesti = "Onneksi olkoon, selvitit aterian kunnialla loppuun! \n"
+                    + "Sait tältä asiakkaalta tippiä " + peli.getKierros().getTippi() + " euroa."
+                    + "Haluatko kohdata seuraavan asiakkaan?";
+
+            if (peli.getAsiakas().getHumala() > 120) {
+                viesti = "Asiakkaasi alkoi käyttäytyä häiritsevästi ja hänet jouduttiin poistamaan ravintolasta. \n"
+                        + "Pidä seuraavalla kerralla huoli, ettet tarjoile asiakkaallesi liian väkeviä juomia! \n"
+                        + " Nyt menetit kaikki tippisi tältä kierrokselta.";
+
+            } else if (peli.getKierros().getTippi() < 0) {
+                viesti = "Aijai, ateria ei mennyt ihan putkeen ja jäit ilman tippiä. \n"
+                        + "Yritä seuraavalla kerralla kuunnella asiakkaan makumieltymyksiä tarkemmin!";
+            }
+
+            Object[] options = {"Oui!",
+                "Aloita alusta!"};
+            int n = JOptionPane.showOptionDialog(gk.getFrame(),
+                    viesti,
+                    "Lopputilanne",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[0]); //default button title
+
+            if (n == JOptionPane.YES_OPTION) {
+                aloitaUusiKierros();
+            } else {
+                aloitaUusiPeli();
+            }
+        }
+    }
+
+    private void aloitaUusiPeli() {
+        gk.restart();
+        gk.paivitaPaneeli(new HovimestarinLuonti(gk));
+    }
+
+    private void aloitaUusiKierros() {
+
+        peli.uusiKierros();
+        gk.paivitaPeli(peli);
+
+        gk.paivitaPaneeli(new Pelitila(gk));
+    }
+
+    private void peliPaattyi() {
+        JOptionPane.showMessageDialog(gk.getFrame(), "Peli päättyi! Sait kasatuksi tippiä" + peli.getHovimestari().getTippi() + " euroa.");
+        aloitaUusiPeli();
+
     }
 
 }

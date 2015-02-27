@@ -4,6 +4,7 @@ import hovimestaripeli.logiikka.Peli;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,7 +20,7 @@ public class Pelitila extends JPanel {
     public Pelitila(GraafinenKali gk) {
 
         super();
-        this.setLayout(new GridLayout(3,1));
+        this.setLayout(new GridLayout(1, 2, 10, 10));
         this.gk = gk;
         this.peli = gk.getPeli();
         luoKomponentit();
@@ -27,14 +28,14 @@ public class Pelitila extends JPanel {
     }
 
     private void luoKomponentit() {
-
-        this.add(new JLabel("Uusi asiakas saapuu! Oletko valmis, " + peli.getHovimestari().getNimi() + "?" ));
+         
         this.add(new AsiakasPaneeli(gk));
         this.add(new Pelivalikko(gk));
-//        this.add(new ValikkoPaneeli());
+
+        if (peli.onAlkuruoka()) {
+            JOptionPane.showMessageDialog(this, "Seuraava asiakkaasi on " + this.peli.getAsiakas());
+        }
+       
     }
-  
-    
-    
 
 }

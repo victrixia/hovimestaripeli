@@ -1,6 +1,7 @@
 package hovimestaripeli.logiikka.asiakas;
 
 import hovimestaripeli.logiikka.tarjottavat.*;
+import java.util.Random;
 
 /**
  * Asiakas on pelin NPC-hahmo, jota hovimestarin tulee miellyttää saadakseen mahdollisimman
@@ -25,30 +26,35 @@ public class Asiakas {
 
     private String nimi;
     private int budjetti;       //viinibudjetti, tähän ei kuulu ruoka eikä tippi
-
+    private String esittely;    // Kuvaus asiakkaan luonteesta ja viinimausta hänen omin sanoin kertomanaan ^^       
     private Maku maku;
     private int humala;         // humalan aste, 10 = 0,1 promillea.
     public int tyytyvaisyys;
     private int level;
+    private RypaleidenVertailu vertaa = new RypaleidenVertailu();       // Laitoinkin omaksi luokakseen, koska samantyyppistä toimintaa tarvitsee myös Maku-luokassa.
+    private String polku;
 
-    public Asiakas(String nimi, int budjetti, Maku maku, int level) {
+    public Asiakas(String nimi, int budjetti, Maku maku, int level, String kuvaus, String kuvaPolku) {
         this.nimi = nimi;
         this.budjetti = budjetti;
         this.level = level;
         this.maku = maku;
         this.humala = 0;
         this.tyytyvaisyys = 0;      // Välillä -100 - 100. Modifioi tipin määrää.
+        this.esittely = kuvaus;
+        this.polku = kuvaPolku;
     }
 
     /**
-     * Asiakkaan humalatilaa kasvatetaan nautitun viinin alkoholiprosentin perusteella.
+     * Asiakkaan humalatilaa kasvatetaan nautitun viinin alkoholiprosentin perusteella, maustettuna pienellä satunnaislisällä.
      * 
      * @param viini 
      */
     
     public void humallu(Viini viini) {       // asiakkaan humalatilan lisäys yhden juoman jäljiltä. Parametriksi tulee Viinin parametri 'vahvuus'.
-
+        Random r = new Random();
         int lisays = 2 * viini.getVahvuus();
+        lisays += r.nextInt(20);        // lisätään d20-mahdollisuus sille, että asiakkaalle nousee alkoholi vähän kovempaa päähän ;) 
 
         this.humala += lisays;
     }
@@ -95,7 +101,7 @@ public class Asiakas {
 
     /**
      * Metodi laskee hovimestarin tipin yhden kierroksen osalta. Tipin määrään vaikuttavat 
-     * asiakkaan tyytyväisyys, humalatila ja budjetti. Tippi voi olla myös negatiivinen, mutta
+     * asiakkaan tyytyväisyys, taso, humalatila ja budjetti. Tippi voi olla myös negatiivinen, mutta
      * tällöin korkeintaan samansuuruinen kuin jo olemassa olevat tippi, eli kokonaistippi ei
      * voi laskea alle nollan. 
      * 
@@ -108,7 +114,7 @@ public class Asiakas {
         int a = 1;
         int b = 1;
 
-        if (this.humala > 20) {         // 0.2 promillen tai sitä korkeampi humala nostaa tippikerrointa
+        if (this.humala > 40) {         // 0.4 promillen tai sitä korkeampi humala nostaa tippikerrointa
             a = this.humala / 10;
         }
 
@@ -116,43 +122,17 @@ public class Asiakas {
             b = this.tyytyvaisyys / 10;   // Jos tyytyväisyys ei ole nolla, tyytyväisyys tai tyytymättömyys antaa myös tippikertoimen - negatiivisen tai positiivisen!
         }
         
-        int tippi = (this.budjetti / 30) * a * b;
+        int tippi = (this.budjetti / (10*this.level)) * a * b;
         
         if ((hovimestarinTippi + tippi) < 0){
+            tippi = -hovimestarinTippi;
+        } else if (humala > 120){
             tippi = -hovimestarinTippi;
         }
 
         return tippi;     // Pitää vielä tutkia tätä humalan ja tipin suhdetta, tällä hetkellä humalainen saattaa heittää kolmannen ruokalajin jälkeen ihan järjettömiä summia pöytään. Sitäpaitsi tippi meni nyt miinukselle vaikka ei saisi.
     }
-    
-    /**
-     * Yleismetodi tutkii, onko kahdessa String[]:issa samansisältöisiä alkioita, eli suomeksi 
-     * sanottuna tarkistaa, onko jokin rypäle jollakin toisella listalla: esimerkiksi tarjottavan
-     * viinin rypäleet asiakkaan suosikki- tai inhokkilistalla, tai ruokalajille erityisen hyvin sopivien
-     * viinien listalla.
-     * 
-     * @param omaMaku
-     * @param viininRypaleet
-     * @return true jos yksikin rypäle löytyy listalta, muuten false
-     */
 
-    public boolean onkoRypaleetListalla(String[] omaMaku, String[] viininRypaleet) {         // tämä metodi nyt ei ole supertehokas, mutta listat ovat niin lyhyitä ettei haitanne vaikka aikavaativuus onkin vain O(n²) :P
-
-        for (int i = 0; i < omaMaku.length; i++) {
-            String a = omaMaku[i];
-            for (int j = 0; j < viininRypaleet.length; j++) {
-                String b = viininRypaleet[j];
-
-                if (a.equals(b)) {
-                    return true;
-                }
-
-            }
-
-        }
-
-        return false;
-    }
     
     /**
      * Tutkii, onko viini asiakkaan suosikki- tai inhokkilistalla. Suosikki päihittää inhokin, eli 
@@ -165,9 +145,9 @@ public class Asiakas {
 
     public int onkoSuosikkiRypale(Viini viini) {
 
-        if (onkoRypaleetListalla(maku.getSuosikki(), viini.getRypaleet())) {             // Teoriassa on mahdollista että samassa viinissä on suosikkia JA inhokkia, mutta suosikki voittaa tässä tapauksessa.
+        if (maku.onSuosikki(viini.getRypaleet())) {             // Teoriassa on mahdollista että samassa viinissä on suosikkia JA inhokkia, mutta suosikki voittaa tässä tapauksessa.
             return 20;
-        } else if (onkoRypaleetListalla(maku.getInhokki(), viini.getRypaleet())) {
+        } else if (maku.onInhokki(viini.getRypaleet())) {
             return - 20;
         }
 
@@ -195,10 +175,10 @@ public class Asiakas {
         if (viini.getVari() == rl.getViinityyppi()){
             lahto = 3;
         }
-        if (onkoRypaleetListalla(viini.getRypaleet(), rl.getPerfetto())) {           // Mitä matalampi leveli, sitä parempi reaktio hyvään viiniin - pitäähän sitä jotain vaikeustasoa olla
+        if ( rl.onkoPerfetto(viini.getRypaleet())) {           // Mitä matalampi leveli, sitä parempi reaktio hyvään viiniin - pitäähän sitä jotain vaikeustasoa olla
             return lahto + 10 + kerroin;
-        } else if (onkoRypaleetListalla(viini.getRypaleet(), rl.getKamala())) {      // Korkeamman levelin asiakkaat reagoi isommalla negatiivisella huonosti sopivaan kuin matalamman, trolololoo
-            return -(level * 2);
+        } else if (rl.onkoKamala(viini.getRypaleet())) {      // Korkeamman levelin asiakkaat reagoi isommalla negatiivisella huonosti sopivaan kuin matalamman, trolololoo
+            return -(level * 3);
         }
 
         return lahto;
@@ -224,6 +204,22 @@ public class Asiakas {
     public int getHumala() {
         return humala;
     }
+    
+    public String getHumalanKuvaus(){
+        String kuvaus = "Asiakas on vesiselvä";
+        
+        if (humala > 40){
+            kuvaus = "Asiakas on hiukan hiprakassa";
+        } else if (humala > 60){
+            kuvaus = "Asiakas on hiukan äänekäs ja hänen poskensa punoittavat";
+        } else if (humala > 80){
+            kuvaus = "Asiakas sammaltaa tuskin huomaamattomasti";
+        } else if (humala > 100){
+            kuvaus = "Asiakas kaatoi juuri lasinsa. Pyyhit pöydän huomaamattomasti.";
+        }
+        
+        return kuvaus;
+    }
 
     public int getTyytyvaisyys() {
         return tyytyvaisyys;
@@ -232,12 +228,22 @@ public class Asiakas {
     public int getLevel() {
         return level;
     }
+    
+    public String getEsittely(){
+        return esittely;
+    }
+    
+    public String getNimi(){
+        return nimi;
+    }
+    
+    public String getKuvanPolku(){
+        return this.polku;
+    }
 
     @Override
     public String toString(){
         
-        // Tähän lisätään vielä jokaiseen asiakkaaseen liittyvä lyhyt kuvaus, joka antaa pelaajalle vinkkiä
-        // siitä, mitä kannattaisi lähteä suosittelemaan.
-        return nimi + " Level " + level; 
+        return nimi + ", Level " + level; 
     }
 }

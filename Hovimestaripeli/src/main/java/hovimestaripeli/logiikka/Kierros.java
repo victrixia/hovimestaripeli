@@ -24,12 +24,14 @@ public class Kierros {
     
     public Kierros(Peli p) {
         this.t = new TarjottavienValiaikaisvarasto();
-        this.asiakas = new Asiakas("Assi Asiakas", 100, new Maku(), 1);
+        
         arvoRuokalaji();
         this.peli = p;
         
         this.vaihe = 1;
         this.tippiTahanAsti = 0;
+        
+        this.asiakas = peli.getAsiakkaat().get(peli.getKierrosluku());
         
     }
 

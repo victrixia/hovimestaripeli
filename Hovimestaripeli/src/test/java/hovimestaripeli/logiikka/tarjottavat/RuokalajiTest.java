@@ -30,7 +30,7 @@ public class RuokalajiTest {
     @Before
     public void setUp() {
 
-        rl = new Ruokalaji(2, "Osso Bucco", new String[]{"Soave"}, new String[]{"Gewürztraminer"}, 1);
+        rl = new Ruokalaji(2, "Osso Bucco", new String[]{"Soave"}, new String[]{"Gewürztraminer"}, ViininVari.PUNA);
     }
 
     @After

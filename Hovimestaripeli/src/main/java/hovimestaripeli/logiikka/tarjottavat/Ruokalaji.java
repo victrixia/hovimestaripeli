@@ -1,5 +1,7 @@
 package hovimestaripeli.logiikka.tarjottavat;
 
+import hovimestaripeli.logiikka.asiakas.RypaleidenVertailu;
+
 /**
  * Asiakkaalle tarjoiltava ruokalaji, joka jaotellaan alku- pää- ja jälkiruokiin. 
  * Ruokalajilla on myös kaksi listaa viineistä; sopivat ja huonosti sopivat. Lisäksi 
@@ -15,7 +17,8 @@ public class Ruokalaji {
     private String kuvaus;
     private String[] perfetto;     // helpommille ruuille voisi olla useampi sopiva
     private String[] kamala;      // mitä vaikeampi, sitä useampia kamalia
-    private int viinityyppi;    // yleisesti sopiva viinityyppi, neutraali valinta
+    private ViininVari viinityyppi;    // yleisesti sopiva viinityyppi, neutraali valinta
+    private RypaleidenVertailu vertaa = new RypaleidenVertailu();
     
     public Ruokalaji(){
         
@@ -23,11 +26,11 @@ public class Ruokalaji {
        this.kuvaus = "Vitello tonnato";
         this.perfetto = new String[]{"Langhe Nebbiolo"};
         this.kamala = new String[]{"Carmenere"};
-        this.viinityyppi = 2;
+        this.viinityyppi = ViininVari.VALKO;
     
     }
 
-    public Ruokalaji(int tyyppi, String kuvaus, String[] perfetto, String[] kamala, int viinityyppi) {
+    public Ruokalaji(int tyyppi, String kuvaus, String[] perfetto, String[] kamala, ViininVari viinityyppi) {
         this.tyyppi = tyyppi;
         this.kuvaus = kuvaus;
         this.perfetto = perfetto;
@@ -41,16 +44,16 @@ public class Ruokalaji {
         return tyyppi;
     }
 
-    public int getViinityyppi() {
+    public ViininVari getViinityyppi() {
         return viinityyppi;
     }
 
-    public String[] getKamala() {
-        return kamala;
+    public boolean onkoKamala(String[] rypaleet) {
+        return vertaa.onkoRypaleetListalla(kamala, rypaleet);
     }
 
-    public String[] getPerfetto() {
-        return perfetto;
+    public boolean onkoPerfetto(String[] rypaleet) {
+        return vertaa.onkoRypaleetListalla(perfetto, rypaleet);
     }
 
     public String getKuvaus() {
